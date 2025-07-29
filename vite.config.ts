@@ -10,19 +10,21 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-  base: process.env.NODE_ENV === 'production' ? '/CV/' : '/',
-  build: {
-    rollupOptions: {
-      output: {
-        assetFileNames: 'assets/[name]-[hash][extname]',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        entryFileNames: 'assets/[name]-[hash].js',
-      },
-    },
-  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  // Configuration pour GitHub Pages
+  base: process.env.NODE_ENV === 'production' ? '/CV/' : '/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
+  }
 })
