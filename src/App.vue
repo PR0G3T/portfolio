@@ -158,9 +158,7 @@ onMounted(() => {
           </div>
         </div>
         <div class="hero-image">
-          <div class="profile-placeholder">
-            <span>JD</span>
-          </div>
+          <img src="/images/profile.png" alt="Photo de profil" class="profile-photo">
         </div>
       </div>
     </section>
@@ -490,17 +488,17 @@ onMounted(() => {
   align-items: center;
 }
 
-.profile-placeholder {
+.profile-photo {
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  font-weight: 700;
-  border: 4px solid rgba(255, 255, 255, 0.2);
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.profile-photo:hover {
+  transform: scale(1.05);
 }
 
 /* Sections */
@@ -859,10 +857,9 @@ onMounted(() => {
     justify-content: center;
   }
 
-  .profile-placeholder {
+  .profile-photo {
     width: 200px;
     height: 200px;
-    font-size: 3rem;
   }
 
   .section-title {
