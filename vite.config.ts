@@ -16,7 +16,7 @@ export default defineConfig({
     },
   },
   // Configuration pour GitHub Pages
-  base: process.env.NODE_ENV === 'production' ? '/CV/' : '/',
+  base: '/CV/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
