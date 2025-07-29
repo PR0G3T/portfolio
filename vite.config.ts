@@ -11,6 +11,15 @@ export default defineConfig({
     vueDevTools(),
   ],
   base: process.env.NODE_ENV === 'production' ? '/CV/' : '/',
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name]-[hash][extname]',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
