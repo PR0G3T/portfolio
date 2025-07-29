@@ -1,4 +1,5 @@
 // Import des fichiers de base
+@use 'sass:color';
 @use 'variables' as *;
 @use 'mixins' as *;
 
@@ -431,7 +432,7 @@
         @include transition(color);
 
         &:hover {
-          color: darken($primary-color, 10%);
+          color: color.adjust($primary-color, $lightness: -10%);
         }
       }
     }
