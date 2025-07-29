@@ -1,0 +1,262 @@
+// Mixins SCSS
+@use 'variables' as *;
+
+// Layout mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Transition mixins
+@mixin transition($property: all) {
+  transition: $property $transition-normal;
+}
+
+@mixin transition-fast($property: all) {
+  transition: $property $transition-fast;
+}
+
+@mixin transition-slow($property: all) {
+  transition: $property $transition-slow;
+}
+
+// Hover effects
+@mixin hover-lift {
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@mixin hover-scale($scale: 1.05) {
+  &:hover {
+    transform: scale($scale);
+  }
+}
+
+@mixin hover-shadow {
+  &:hover {
+    box-shadow: 0 8px 25px $shadow-medium;
+  }
+}
+
+// Card styles
+@mixin card-shadow {
+  box-shadow: 0 4px 6px $shadow-light;
+  border: 1px solid $border-color;
+}
+
+@mixin card-hover {
+  @include transition;
+  @include hover-lift;
+  @include hover-shadow;
+}
+
+// Button styles
+@mixin button-base {
+  padding: $spacing-sm $spacing-xl;
+  border-radius: $border-radius-md;
+  text-decoration: none;
+  font-weight: $font-weight-semibold;
+  @include transition;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+@mixin button-primary {
+  @include button-base;
+  background: $primary-color;
+  color: white;
+
+  &:hover {
+    background: $primary-dark;
+    @include hover-lift;
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+
+  &:hover {
+    background: white;
+    color: $secondary-color;
+    @include hover-lift;
+  }
+}
+
+// Responsive mixins
+@mixin responsive($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin desktop-large {
+  @include responsive($desktop-large) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @include responsive($desktop) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @include responsive($tablet) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @include responsive($mobile) {
+    @content;
+  }
+}
+
+@mixin mobile-small {
+  @include responsive($mobile-small) {
+    @content;
+  }
+}
+
+@mixin mobile-extra-small {
+  @include responsive($mobile-extra-small) {
+    @content;
+  }
+}
+
+// Typography mixins
+@mixin heading-1 {
+  font-size: 3.5rem;
+  font-weight: $font-weight-extrabold;
+  line-height: 1.1;
+}
+
+@mixin heading-2 {
+  font-size: 2.5rem;
+  font-weight: $font-weight-bold;
+}
+
+@mixin heading-3 {
+  font-size: 1.5rem;
+  font-weight: $font-weight-bold;
+}
+
+@mixin heading-4 {
+  font-size: 1.2rem;
+  font-weight: $font-weight-semibold;
+}
+
+@mixin body-text {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@mixin caption-text {
+  font-size: 0.9rem;
+  color: $text-secondary;
+}
+
+// Animation mixins
+@mixin fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// Utility mixins
+@mixin container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+}
+
+@mixin section-padding {
+  padding: $spacing-3xl 0;
+}
+
+@mixin grid-auto-fit($min-width: 300px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $spacing-2xl;
+}
+
+@mixin skill-tag {
+  background: $primary-color;
+  color: white;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-xl;
+  font-size: 0.9rem;
+  font-weight: $font-weight-medium;
+  @include transition;
+  @include hover-lift;
+}
+
+// Responsive typography mixins
+@mixin responsive-heading-1 {
+  @include heading-1;
+  
+  @include tablet {
+    font-size: 3rem;
+  }
+  
+  @include mobile {
+    font-size: 2.5rem;
+  }
+  
+  @include mobile-small {
+    font-size: 2rem;
+  }
+  
+  @include mobile-extra-small {
+    font-size: 1.8rem;
+  }
+}
+
+@mixin responsive-heading-2 {
+  @include heading-2;
+  
+  @include tablet {
+    font-size: 2.2rem;
+  }
+  
+  @include mobile {
+    font-size: 2rem;
+  }
+  
+  @include mobile-small {
+    font-size: 1.8rem;
+  }
+  
+  @include mobile-extra-small {
+    font-size: 1.6rem;
+  }
+}

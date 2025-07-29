@@ -1,0 +1,902 @@
+// Import des fichiers de base
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Reset and Base Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cv-container {
+  font-family: $font-family;
+  line-height: 1.6;
+  color: $text-primary;
+  background: $background-light;
+}
+
+.container {
+  @include container;
+}
+
+// Navigation
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid $border-color;
+  z-index: $z-fixed;
+  @include transition;
+
+  .nav-content {
+    @include container;
+    @include flex-between;
+    height: 70px;
+  }
+
+  .nav-brand h2 {
+    color: $text-primary;
+    font-weight: $font-weight-bold;
+    font-size: 1.5rem;
+  }
+
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    gap: $spacing-xl;
+
+    a {
+      color: $text-secondary;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+      cursor: pointer;
+      @include transition(color);
+      position: relative;
+
+      &:hover,
+      &.active {
+        color: $primary-color;
+      }
+
+      &.active::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: $primary-color;
+      }
+    }
+  }
+}
+
+// Hero Section
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, $secondary-color 0%, $accent-color 100%);
+  color: white;
+  padding: 120px 20px 80px;
+
+  .hero-content {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-3xl;
+    align-items: center;
+  }
+
+  .hero-text {
+    h1 {
+      @include heading-1;
+      margin-bottom: $spacing-md;
+    }
+
+    h2 {
+      @include heading-4;
+      font-weight: $font-weight-normal;
+      margin-bottom: $spacing-lg;
+      opacity: 0.9;
+    }
+
+    .hero-summary {
+      font-size: 1.1rem;
+      margin-bottom: $spacing-xl;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: $spacing-md;
+      flex-wrap: wrap;
+    }
+  }
+
+  .hero-image {
+    @include flex-center;
+
+    .profile-photo {
+      width: 300px;
+      height: 300px;
+      border-radius: $border-radius-full;
+      object-fit: cover;
+      box-shadow: 0 10px 30px $shadow-dark;
+      @include transition(transform);
+      @include hover-scale;
+    }
+  }
+}
+
+// Buttons
+.btn {
+  @include button-base;
+
+  &.btn-primary {
+    @include button-primary;
+  }
+
+  &.btn-secondary {
+    @include button-secondary;
+  }
+}
+
+// Sections
+.section {
+  @include section-padding;
+  background: $background-white;
+  @include fade-in-up;
+
+  &:nth-child(even) {
+    background: $background-light;
+  }
+
+  .section-title {
+    @include heading-2;
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+    color: $text-primary;
+  }
+}
+
+// Timeline
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $border-color;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: $spacing-2xl;
+    padding-left: 60px;
+
+    .timeline-marker {
+      position: absolute;
+      left: 11px;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: $border-radius-full;
+      background: $primary-color;
+      border: 4px solid white;
+      box-shadow: 0 0 0 4px $border-color;
+    }
+
+    .timeline-content {
+      background: $background-white;
+      padding: $spacing-xl;
+      border-radius: $border-radius-lg;
+      @include card-shadow;
+
+      .job-header {
+        .job-company {
+          display: flex;
+          align-items: center;
+          gap: $spacing-md;
+          margin-bottom: $spacing-sm;
+
+          .company-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: $border-radius-md;
+            object-fit: contain;
+            flex-shrink: 0;
+          }
+
+          h3 {
+            @include heading-3;
+            color: $text-primary;
+            margin-bottom: $spacing-xs;
+          }
+
+          h4 {
+            @include heading-4;
+            color: $primary-color;
+            margin-bottom: 0;
+          }
+        }
+
+        .job-meta {
+          display: flex;
+          gap: $spacing-md;
+          margin-bottom: $spacing-md;
+          @include caption-text;
+        }
+      }
+
+      .job-description {
+        margin-bottom: $spacing-md;
+        color: $text-muted;
+        line-height: 1.6;
+      }
+
+      .job-achievements {
+        list-style: none;
+
+        li {
+          position: relative;
+          padding-left: $spacing-lg;
+          margin-bottom: $spacing-sm;
+          color: $text-muted;
+
+          &::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: $success-color;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Skills
+.skills-grid {
+  @include grid-auto-fit(300px);
+  margin-bottom: $spacing-2xl;
+
+  .skills-category {
+    h3 {
+      @include heading-3;
+      margin-bottom: $spacing-lg;
+      color: $text-primary;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+
+      .skill-tag {
+        @include skill-tag;
+      }
+    }
+  }
+}
+
+.certifications-section,
+.languages-section {
+  margin-top: $spacing-2xl;
+
+  h3 {
+    @include heading-3;
+    margin-bottom: $spacing-lg;
+    color: $text-primary;
+  }
+}
+
+.certifications-list {
+  @include grid-auto-fit(250px);
+
+  .certification-item {
+    @include flex-start;
+    gap: $spacing-sm;
+    padding: $spacing-md;
+    background: $background-white;
+    border-radius: $border-radius-md;
+    border: 1px solid $border-color;
+    @include transition;
+    @include hover-lift;
+
+    .cert-icon {
+      flex-shrink: 0;
+    }
+  }
+}
+
+.languages-list {
+  @include grid-auto-fit(200px);
+
+  .language-item {
+    @include flex-between;
+    padding: $spacing-md;
+    background: $background-white;
+    border-radius: $border-radius-md;
+    border: 1px solid $border-color;
+
+    .language-name {
+      font-weight: $font-weight-semibold;
+      color: $text-primary;
+    }
+
+    .language-level {
+      @include caption-text;
+    }
+  }
+}
+
+// Education
+.education-grid {
+  @include grid-auto-fit(350px);
+  max-width: 800px;
+  margin: 0 auto;
+
+  .education-card {
+    @include flex-start;
+    gap: $spacing-lg;
+    padding: $spacing-xl;
+    background: $background-white;
+    border-radius: $border-radius-lg;
+    @include card-shadow;
+    @include card-hover;
+
+    .education-logo {
+      flex-shrink: 0;
+
+      .institution-logo {
+        width: 50px;
+        height: 50px;
+        border-radius: $border-radius-md;
+        object-fit: contain;
+      }
+    }
+
+    .education-content {
+      flex: 1;
+
+      h3 {
+        @include heading-4;
+        color: $text-primary;
+        margin-bottom: $spacing-sm;
+      }
+
+      h4 {
+        @include heading-4;
+        color: $primary-color;
+        margin-bottom: $spacing-sm;
+      }
+
+      .education-meta {
+        display: flex;
+        gap: $spacing-md;
+        margin-bottom: $spacing-md;
+        @include caption-text;
+        flex-wrap: wrap;
+
+        .education-grade {
+          background: $success-color;
+          color: white;
+          padding: 2px 8px;
+          border-radius: $border-radius-sm;
+          font-size: 0.8rem;
+          font-weight: $font-weight-semibold;
+        }
+      }
+
+      .education-description {
+        color: $text-muted;
+        line-height: 1.6;
+        margin-bottom: $spacing-md;
+        font-size: 0.95rem;
+      }
+
+      .education-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-xs;
+        margin-bottom: $spacing-md;
+
+        .skill-tag {
+          @include skill-tag;
+          font-size: 0.8rem;
+          padding: 4px 8px;
+        }
+      }
+
+      .education-website {
+        display: inline-flex;
+        align-items: center;
+        gap: $spacing-xs;
+        color: $primary-color;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: $font-weight-medium;
+        @include transition(color);
+
+        &:hover {
+          color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+}
+
+// Contact
+.contact-content {
+  max-width: 600px;
+  margin: 0 auto;
+
+  .contact-info {
+    @include grid-auto-fit(250px);
+
+    .contact-item {
+      @include flex-start;
+      gap: $spacing-md;
+      padding: $spacing-lg;
+      background: $background-white;
+      border-radius: $border-radius-lg;
+      @include card-shadow;
+      @include card-hover;
+
+      .contact-icon {
+        width: 24px;
+        height: 24px;
+        color: $primary-color;
+        flex-shrink: 0;
+      }
+
+      h4 {
+        font-size: 1rem;
+        font-weight: $font-weight-semibold;
+        color: $text-primary;
+        margin-bottom: $spacing-xs;
+      }
+
+      a,
+      span {
+        color: $text-secondary;
+        text-decoration: none;
+        @include transition(color);
+      }
+
+      a:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+// Footer
+.footer {
+  background: $text-primary;
+  color: white;
+  text-align: center;
+  padding: $spacing-xl 0;
+}
+
+// Responsive Design - Large Desktop
+@include responsive(1400px) {
+  .container {
+    max-width: 1400px;
+  }
+
+  .hero-text h1 {
+    font-size: 4rem;
+  }
+
+  .section-title {
+    font-size: 3rem;
+  }
+}
+
+// Responsive Design - Desktop
+@include responsive(1200px) {
+  .hero-content {
+    gap: $spacing-2xl;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+}
+
+// Responsive Design - Tablet
+@include responsive(1024px) {
+  .hero {
+    padding: 100px 20px 60px;
+
+    .hero-content {
+      gap: $spacing-xl;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+    }
+
+    .profile-photo {
+      width: 250px;
+      height: 250px;
+    }
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+  }
+
+  .timeline {
+    max-width: 700px;
+
+    .timeline-item {
+      .timeline-content {
+        .job-header {
+          .job-company {
+            .company-logo {
+              width: 35px;
+              height: 35px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .education-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    .education-card {
+      .education-logo {
+        .institution-logo {
+          width: 45px;
+          height: 45px;
+        }
+      }
+    }
+  }
+
+  .contact-info {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+// Responsive Design - Mobile Large
+@include mobile {
+  .navbar {
+    .nav-content {
+      height: 60px;
+    }
+
+    .nav-brand h2 {
+      font-size: 1.3rem;
+    }
+
+    .nav-menu {
+      gap: $spacing-lg;
+
+      a {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .hero {
+    padding: 80px 15px 40px;
+
+    .hero-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: $spacing-xl;
+    }
+
+    .hero-text {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      .hero-summary {
+        font-size: 1rem;
+      }
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .profile-photo {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  .section {
+    padding: 50px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: $spacing-xl;
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+
+  .timeline {
+    &::before {
+      left: 15px;
+    }
+
+    .timeline-item {
+      padding-left: 50px;
+
+      .timeline-marker {
+        left: 6px;
+        width: 18px;
+        height: 18px;
+      }
+
+      .timeline-content {
+        padding: $spacing-lg;
+
+        .job-header {
+          .job-company {
+            .company-logo {
+              width: 30px;
+              height: 30px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-xl;
+  }
+
+  .skills-category {
+    .skills-list {
+      justify-content: center;
+    }
+  }
+
+  .certifications-list {
+    grid-template-columns: 1fr;
+  }
+
+  .languages-list {
+    grid-template-columns: 1fr;
+  }
+
+  .education-grid {
+    grid-template-columns: 1fr;
+
+    .education-card {
+      .education-logo {
+        .institution-logo {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-item {
+    padding: $spacing-md;
+  }
+}
+
+// Responsive Design - Mobile Small
+@include mobile-small {
+  .navbar {
+    .nav-content {
+      height: 50px;
+      padding: 0 10px;
+    }
+
+    .nav-brand h2 {
+      font-size: 1.1rem;
+    }
+
+    .nav-menu {
+      gap: $spacing-md;
+
+      a {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .hero {
+    padding: 70px 10px 30px;
+
+    .hero-text {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.1rem;
+      }
+
+      .hero-summary {
+        font-size: 0.9rem;
+      }
+    }
+
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  .section {
+    padding: 40px 0;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+  .timeline {
+    &::before {
+      left: 10px;
+    }
+
+    .timeline-item {
+      padding-left: 40px;
+
+      .timeline-marker {
+        left: 3px;
+        width: 16px;
+        height: 16px;
+      }
+
+      .timeline-content {
+        padding: $spacing-md;
+
+        .job-header {
+          .job-company {
+            .company-logo {
+              width: 25px;
+              height: 25px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .skills-category {
+    .skills-list {
+      gap: $spacing-xs;
+
+      .skill-tag {
+        font-size: 0.8rem;
+        padding: $spacing-xs $spacing-sm;
+      }
+    }
+  }
+
+  .certification-item {
+    padding: $spacing-sm;
+    font-size: 0.9rem;
+  }
+
+  .language-item {
+    padding: $spacing-sm;
+    font-size: 0.9rem;
+  }
+
+  .education-card {
+    padding: $spacing-md;
+
+    .education-logo {
+      .institution-logo {
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+
+  .contact-item {
+    padding: $spacing-sm;
+
+    .contact-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    h4 {
+      font-size: 0.9rem;
+    }
+
+    a,
+    span {
+      font-size: 0.9rem;
+    }
+  }
+
+  .footer {
+    padding: $spacing-lg 0;
+    font-size: 0.9rem;
+  }
+}
+
+// Responsive Design - Extra Small Mobile
+@include responsive(320px) {
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-text h2 {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .profile-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .nav-menu {
+    gap: $spacing-sm;
+
+    a {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Loading animation
+@include keyframes(fadeInUp) {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import './styles/main.scss'
 
 // CV Data
 const cvData = ref({
@@ -20,6 +21,7 @@ const cvData = ref({
       position: 'Senior Software Engineer',
       period: '2021 - Present',
       location: 'San Francisco, CA',
+      logo: '/images/companies/techcorp.svg',
       description: 'Lead development of enterprise web applications using Vue.js and Node.js. Mentored junior developers and implemented best practices.',
       achievements: [
         'Reduced application load time by 40% through optimization',
@@ -32,6 +34,7 @@ const cvData = ref({
       position: 'Full Stack Developer',
       period: '2019 - 2021',
       location: 'New York, NY',
+      logo: '/images/companies/startupxyz.svg',
       description: 'Developed and maintained multiple web applications using modern JavaScript frameworks and cloud services.',
       achievements: [
         'Built scalable microservices architecture',
@@ -44,6 +47,7 @@ const cvData = ref({
       position: 'Frontend Developer',
       period: '2017 - 2019',
       location: 'Austin, TX',
+      logo: '/images/companies/digital-solutions.svg',
       description: 'Created responsive web interfaces and implemented modern frontend technologies.',
       achievements: [
         'Developed 10+ client websites with 100% client satisfaction',
@@ -54,16 +58,45 @@ const cvData = ref({
   ],
   education: [
     {
-      degree: 'Master of Science in Computer Science',
-      school: 'Stanford University',
-      period: '2015 - 2017',
-      location: 'Stanford, CA'
+      degree: 'Artificial Intelligence, Computer Science & Cybersecurity',
+      school: 'University of Helsinki - Open University',
+      period: 'Apr 2025',
+      location: 'Helsinki, Finland',
+      logo: '/images/companies/university-of-helsinki.png',
+      description: 'The open university provides University of Helsinki\'s courses for everyone interested in them, offering the opportunity to strengthen your skills',
+      skills: ['Artificial Intelligence (AI)', 'Computer Science', 'Cybersecurity'],
+      website: 'https://www.helsinki.fi/en/admissions-and-education/open-university'
     },
     {
-      degree: 'Bachelor of Science in Software Engineering',
-      school: 'University of California, Berkeley',
-      period: '2011 - 2015',
-      location: 'Berkeley, CA'
+      degree: 'Mathematics',
+      school: 'MITx Courses',
+      period: 'Apr 2025',
+      location: 'Online',
+      logo: '/images/companies/mit.png',
+      description: 'MITx offers various types of courses and programs to learn from MIT faculty and instructors. You can access free open-licensed educational materials, online professional credentials, blended learning experiences, and original content on emerging technologies.',
+      skills: ['Mathematics'],
+      website: 'https://mitxonline.mit.edu/'
+    },
+    {
+      degree: 'Bachelor, Business, Management, Marketing',
+      school: 'Gaming Business School',
+      period: 'Oct 2023 - May 2025',
+      location: 'Lyon, France',
+      logo: '/images/companies/gaming-campus.svg',
+      description: 'Located in the heart of Lyon, the Gaming Campus school has been designed to create optimal learning conditions for the video game industry.',
+      skills: ['Business', 'Management', 'Marketing', 'Gaming Industry'],
+      website: 'https://gamingcampus.com/'
+    },
+    {
+      degree: 'Baccalaureate, Science and Technology of Industry and Sustainable Development',
+      school: 'Lycée Polyvalent Louis Armand',
+      period: 'Sep 2021 - Jul 2023',
+      location: 'Villefranche-sur-Saône, France',
+      logo: '/images/companies/lycee-louis-armand.svg',
+      description: 'Secondary school in Villefranche-sur-Saône, part of the Lyon education authority.',
+      grade: 'Fairly Good',
+      skills: ['Science', 'Technology', 'Industry', 'Sustainable Development'],
+      website: 'https://lyc-louis-armand-villefranche.ent.auvergnerhonealpes.fr/'
     }
   ],
   skills: {
@@ -90,11 +123,9 @@ const cvData = ref({
 })
 
 const activeSection = ref('about')
-const isMenuOpen = ref(false)
 
 const scrollToSection = (section: string) => {
   activeSection.value = section
-  isMenuOpen.value = false
   const element = document.getElementById(section)
   if (element) {
     element.scrollIntoView({ behavior: 'smooth' })
@@ -125,15 +156,10 @@ onMounted(() => {
 <template>
   <div class="cv-container">
     <!-- Navigation -->
-    <nav class="navbar" :class="{ 'nav-open': isMenuOpen }">
+    <nav class="navbar">
       <div class="nav-content">
         <div class="nav-brand">
           <h2>{{ cvData.personal.name }}</h2>
-        </div>
-        <div class="nav-toggle" @click="isMenuOpen = !isMenuOpen">
-          <span></span>
-          <span></span>
-          <span></span>
         </div>
         <ul class="nav-menu">
           <li><a @click="scrollToSection('about')" :class="{ active: activeSection === 'about' }">About</a></li>
@@ -172,8 +198,11 @@ onMounted(() => {
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="job-header">
-                <h3>{{ job.position }}</h3>
-                <h4>{{ job.company }}</h4>
+                <div class="job-company">
+                  <img v-if="job.logo" :src="job.logo" :alt="job.company + ' logo'" class="company-logo">
+                  <h3>{{ job.position }}</h3>
+                  <h4>{{ job.company }}</h4>
+                </div>
                 <div class="job-meta">
                   <span class="job-period">{{ job.period }}</span>
                   <span class="job-location">{{ job.location }}</span>
@@ -212,7 +241,9 @@ onMounted(() => {
           <h3>Certifications</h3>
           <div class="certifications-list">
             <div v-for="cert in cvData.certifications" :key="cert" class="certification-item">
-              <span class="cert-icon">🏆</span>
+              <svg class="cert-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 2l2.5 7.5H20l-5 4 2.5 7.5L10 16l-7.5 7.5L5 16 0 11.5h7.5L10 4z" fill="#f59e0b"/>
+              </svg>
               <span>{{ cert }}</span>
             </div>
           </div>
@@ -236,14 +267,24 @@ onMounted(() => {
         <h2 class="section-title">Education</h2>
         <div class="education-grid">
           <div v-for="(edu, index) in cvData.education" :key="index" class="education-card">
-            <div class="education-icon">🎓</div>
+            <div class="education-logo">
+              <img v-if="edu.logo" :src="edu.logo" :alt="edu.school + ' logo'" class="institution-logo">
+            </div>
             <div class="education-content">
               <h3>{{ edu.degree }}</h3>
               <h4>{{ edu.school }}</h4>
               <div class="education-meta">
                 <span>{{ edu.period }}</span>
                 <span>{{ edu.location }}</span>
+                <span v-if="edu.grade" class="education-grade">{{ edu.grade }}</span>
               </div>
+              <p v-if="edu.description" class="education-description">{{ edu.description }}</p>
+              <div v-if="edu.skills && edu.skills.length" class="education-skills">
+                <span v-for="skill in edu.skills" :key="skill" class="skill-tag">{{ skill }}</span>
+              </div>
+              <a v-if="edu.website" :href="edu.website" target="_blank" class="education-website">
+                Visit Website ↗
+              </a>
             </div>
           </div>
         </div>
@@ -257,42 +298,60 @@ onMounted(() => {
         <div class="contact-content">
           <div class="contact-info">
             <div class="contact-item">
-              <span class="contact-icon">📧</span>
+              <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
               <div>
                 <h4>Email</h4>
                 <a :href="`mailto:${cvData.personal.email}`">{{ cvData.personal.email }}</a>
               </div>
             </div>
             <div class="contact-item">
-              <span class="contact-icon">📱</span>
+              <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
               <div>
                 <h4>Phone</h4>
                 <a :href="`tel:${cvData.personal.phone}`">{{ cvData.personal.phone }}</a>
               </div>
             </div>
             <div class="contact-item">
-              <span class="contact-icon">📍</span>
+              <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
               <div>
                 <h4>Location</h4>
                 <span>{{ cvData.personal.location }}</span>
               </div>
             </div>
             <div class="contact-item">
-              <span class="contact-icon">🔗</span>
+              <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
               <div>
                 <h4>LinkedIn</h4>
                 <a :href="`https://${cvData.personal.linkedin}`" target="_blank">{{ cvData.personal.linkedin }}</a>
               </div>
             </div>
             <div class="contact-item">
-              <span class="contact-icon">💻</span>
+              <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
               <div>
                 <h4>GitHub</h4>
                 <a :href="`https://${cvData.personal.github}`" target="_blank">{{ cvData.personal.github }}</a>
               </div>
             </div>
             <div class="contact-item">
-              <span class="contact-icon">🌐</span>
+              <svg class="contact-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
               <div>
                 <h4>Website</h4>
                 <a :href="`https://${cvData.personal.website}`" target="_blank">{{ cvData.personal.website }}</a>
@@ -311,640 +370,3 @@ onMounted(() => {
     </footer>
   </div>
 </template>
-
-<style scoped>
-/* Reset and Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.cv-container {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background: #f8fafc;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* Navigation */
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #e2e8f0;
-  z-index: 1000;
-  transition: all 0.3s ease;
-}
-
-.nav-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-}
-
-.nav-brand h2 {
-  color: #1e293b;
-  font-weight: 700;
-  font-size: 1.5rem;
-}
-
-.nav-menu {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-}
-
-.nav-menu a {
-  color: #64748b;
-  text-decoration: none;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color 0.3s ease;
-  position: relative;
-}
-
-.nav-menu a:hover,
-.nav-menu a.active {
-  color: #3b82f6;
-}
-
-.nav-menu a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: #3b82f6;
-}
-
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 4px;
-}
-
-.nav-toggle span {
-  width: 25px;
-  height: 3px;
-  background: #1e293b;
-  transition: all 0.3s ease;
-}
-
-/* Hero Section */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 120px 20px 80px;
-}
-
-.hero-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-
-.hero-text h1 {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  line-height: 1.1;
-}
-
-.hero-text h2 {
-  font-size: 1.5rem;
-  font-weight: 400;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-}
-
-.hero-summary {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  opacity: 0.9;
-  line-height: 1.7;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.btn-primary {
-  background: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-}
-
-.btn-secondary:hover {
-  background: white;
-  color: #667eea;
-  transform: translateY(-2px);
-}
-
-.hero-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-photo {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
-}
-
-.profile-photo:hover {
-  transform: scale(1.05);
-}
-
-/* Sections */
-.section {
-  padding: 80px 0;
-  background: white;
-}
-
-.section:nth-child(even) {
-  background: #f8fafc;
-}
-
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: #1e293b;
-}
-
-/* Timeline */
-.timeline {
-  position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 20px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: #e2e8f0;
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 3rem;
-  padding-left: 60px;
-}
-
-.timeline-marker {
-  position: absolute;
-  left: 11px;
-  top: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #3b82f6;
-  border: 4px solid white;
-  box-shadow: 0 0 0 4px #e2e8f0;
-}
-
-.timeline-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
-}
-
-.job-header h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
-}
-
-.job-header h4 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #3b82f6;
-  margin-bottom: 0.5rem;
-}
-
-.job-meta {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  color: #64748b;
-}
-
-.job-description {
-  margin-bottom: 1rem;
-  color: #475569;
-  line-height: 1.6;
-}
-
-.job-achievements {
-  list-style: none;
-}
-
-.job-achievements li {
-  position: relative;
-  padding-left: 1.5rem;
-  margin-bottom: 0.5rem;
-  color: #475569;
-}
-
-.job-achievements li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #10b981;
-  font-weight: bold;
-}
-
-/* Skills */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
-  margin-bottom: 3rem;
-}
-
-.skills-category h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #1e293b;
-}
-
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.skill-tag {
-  background: #3b82f6;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.skill-tag:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-}
-
-.certifications-section,
-.languages-section {
-  margin-top: 3rem;
-}
-
-.certifications-section h3,
-.languages-section h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #1e293b;
-}
-
-.certifications-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
-.certification-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.certification-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.languages-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
-.language-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: white;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-}
-
-.language-name {
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.language-level {
-  color: #64748b;
-  font-size: 0.9rem;
-}
-
-/* Education */
-.education-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.education-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  padding: 2rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.education-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-.education-icon {
-  font-size: 2rem;
-  flex-shrink: 0;
-}
-
-.education-content h3 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
-}
-
-.education-content h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #3b82f6;
-  margin-bottom: 0.5rem;
-}
-
-.education-meta {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.9rem;
-  color: #64748b;
-}
-
-/* Contact */
-.contact-content {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.contact-info {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.contact-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-.contact-icon {
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-
-.contact-item h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 0.25rem;
-}
-
-.contact-item a,
-.contact-item span {
-  color: #64748b;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.contact-item a:hover {
-  color: #3b82f6;
-}
-
-/* Footer */
-.footer {
-  background: #1e293b;
-  color: white;
-  text-align: center;
-  padding: 2rem 0;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .nav-menu {
-    position: fixed;
-    top: 70px;
-    left: -100%;
-    width: 100%;
-    height: calc(100vh - 70px);
-    background: white;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: 2rem;
-    transition: left 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-menu.active {
-    left: 0;
-  }
-
-  .nav-toggle {
-    display: flex;
-  }
-
-  .hero-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 2rem;
-  }
-
-  .hero-text h1 {
-    font-size: 2.5rem;
-  }
-
-  .hero-actions {
-    justify-content: center;
-  }
-
-  .profile-photo {
-    width: 200px;
-    height: 200px;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  .timeline::before {
-    left: 15px;
-  }
-
-  .timeline-item {
-    padding-left: 50px;
-  }
-
-  .timeline-marker {
-    left: 6px;
-    width: 18px;
-    height: 18px;
-  }
-
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .education-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-info {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero {
-    padding: 100px 15px 60px;
-  }
-
-  .hero-text h1 {
-    font-size: 2rem;
-  }
-
-  .hero-text h2 {
-    font-size: 1.2rem;
-  }
-
-  .section {
-    padding: 60px 0;
-  }
-
-  .container {
-    padding: 0 15px;
-  }
-
-  .timeline-content {
-    padding: 1.5rem;
-  }
-
-  .education-card {
-    padding: 1.5rem;
-  }
-
-  .contact-item {
-    padding: 1rem;
-  }
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Loading animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.section {
-  animation: fadeInUp 0.6s ease-out;
-}
-</style>

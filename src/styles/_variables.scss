@@ -1,0 +1,61 @@
+// Variables SCSS
+$primary-color: #3b82f6;
+$primary-dark: #2563eb;
+$secondary-color: #667eea;
+$accent-color: #764ba2;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$text-muted: #475569;
+$background-light: #f8fafc;
+$background-white: #ffffff;
+$border-color: #e2e8f0;
+$success-color: #10b981;
+$shadow-light: rgba(0, 0, 0, 0.05);
+$shadow-medium: rgba(0, 0, 0, 0.1);
+$shadow-dark: rgba(0, 0, 0, 0.2);
+
+// Breakpoints
+$desktop-large: 1400px;
+$desktop: 1200px;
+$tablet: 1024px;
+$mobile: 768px;
+$mobile-small: 480px;
+$mobile-extra-small: 320px;
+
+// Typography
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+$spacing-3xl: 4rem;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 20px;
+$border-radius-full: 50%;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Z-index
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;
