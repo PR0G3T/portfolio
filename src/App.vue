@@ -5,54 +5,67 @@ import './styles/main.scss'
 // CV Data
 const cvData = ref({
   personal: {
-    name: 'John Doe',
-    title: 'Senior Software Engineer',
-    email: 'john.doe@email.com',
-    phone: '+1 (555) 123-4567',
-    location: 'San Francisco, CA',
-    linkedin: 'linkedin.com/in/johndoe',
-    github: 'github.com/johndoe',
-    website: 'johndoe.dev'
+    name: 'Killian OTT',
+    title: 'Chief Executive Officer & Software Engineer',
+    email: 'killian.ott@email.com',
+    phone: '+33 6 XX XX XX XX',
+    location: 'Lyon, France',
+    linkedin: 'linkedin.com/in/killian-ott',
+    github: 'github.com/killian-ott',
+    website: 'killian-ott.dev'
   },
-  summary: 'Experienced software engineer with 8+ years of expertise in full-stack development, specializing in Vue.js, React, Node.js, and cloud technologies. Proven track record of delivering scalable solutions and leading development teams.',
+  summary: 'I\'ve always been fascinated by what humankind is capable of achieving. I love watching it grow, and I\'m lucky enough to witness it.​ I intend to have a global impact, to be forever inscribed in History, immortalized by human consciousness.',
   experience: [
     {
-      company: 'TechCorp Inc.',
-      position: 'Senior Software Engineer',
-      period: '2021 - Present',
-      location: 'San Francisco, CA',
-      logo: '/images/companies/techcorp.svg',
-      description: 'Lead development of enterprise web applications using Vue.js and Node.js. Mentored junior developers and implemented best practices.',
+      company: 'Team Cardinalis',
+      position: 'Chief Executive Officer',
+      period: 'Jul 2020 - Present',
+      location: 'International · Self-employed',
+      logo: '/images/companies/team-cardinalis.png',
+      description: 'Established in 2020, Team Cardinalis stands as an international organisation where eSports converge to inspire and unite.',
       achievements: [
-        'Reduced application load time by 40% through optimization',
-        'Led a team of 5 developers on a major product launch',
-        'Implemented CI/CD pipeline reducing deployment time by 60%'
+        'Founded and led an international eSports organization',
+        'Managed innovation management and data engineering initiatives',
+        'Built a global team focused on eSports excellence and community building'
       ]
     },
     {
-      company: 'StartupXYZ',
-      position: 'Full Stack Developer',
-      period: '2019 - 2021',
-      location: 'New York, NY',
-      logo: '/images/companies/startupxyz.svg',
-      description: 'Developed and maintained multiple web applications using modern JavaScript frameworks and cloud services.',
+      company: 'Körber Supply Chain Software',
+      position: 'Developer',
+      period: 'May 2024 - Jul 2024',
+      location: 'Lyon, Auvergne-Rhône-Alpes, France',
+      logo: '/images/companies/korber.png',
+      description: 'German company specializing in automation and logistics technologies, founded in 1946. It provides innovative solutions for supply chain management and digital transformation.',
       achievements: [
-        'Built scalable microservices architecture',
-        'Improved user engagement by 25% through UI/UX enhancements',
-        'Reduced bug reports by 30% through comprehensive testing'
+        'Developed web applications and data engineering solutions',
+        'Worked with supply chain management and automation technologies',
+        'Contributed to digital transformation initiatives in logistics'
       ]
     },
     {
-      company: 'Digital Solutions',
-      position: 'Frontend Developer',
-      period: '2017 - 2019',
-      location: 'Austin, TX',
+      company: 'Freelance',
+      position: 'Ethical Hacker | Bounty Hunter',
+      period: 'May 2019 - Jun 2021',
+      location: 'France · Remote',
       logo: '/images/companies/digital-solutions.svg',
-      description: 'Created responsive web interfaces and implemented modern frontend technologies.',
+      description: 'Individuals with solid computer-science expertise and a strong spirit of curiosity can excel as bounty hunters. There is no age requirement for entry; the essential prerequisite for sustained success is a commitment to continuous learning.',
       achievements: [
-        'Developed 10+ client websites with 100% client satisfaction',
-        'Implemented responsive design principles across all projects',
-        'Optimized website performance achieving 95+ Lighthouse scores'
+        'Conducted cybersecurity assessments and vulnerability research',
+        'Participated in bug bounty programs and security competitions',
+        'Developed expertise in ethical hacking and security testing'
+      ]
+    },
+    {
+      company: 'StarSpace Studio',
+      position: 'Chief Executive Officer',
+      period: 'Sep 2017 - May 2019',
+      location: 'France · Remote',
+      logo: '/images/companies/startupxyz.svg',
+      description: 'Autonomous game development studio employing Unreal Engine 4.22 for game development endeavors.',
+      achievements: [
+        'Led game development studio using Unreal Engine 4.22',
+        'Managed autonomous game development projects',
+        'Oversaw technical and creative direction of game studio'
       ]
     }
   ],
@@ -102,23 +115,25 @@ const cvData = ref({
   skills: {
     technical: [
       'Vue.js', 'React', 'TypeScript', 'JavaScript', 'Node.js', 'Python',
-      'AWS', 'Docker', 'Kubernetes', 'PostgreSQL', 'MongoDB', 'Redis',
+      'Unreal Engine 4.22', 'Web Development', 'Data Engineering',
+      'Cybersecurity', 'Ethical Hacking', 'Supply Chain Management',
       'Git', 'CI/CD', 'REST APIs', 'GraphQL', 'Microservices'
     ],
     soft: [
-      'Team Leadership', 'Project Management', 'Agile/Scrum', 'Problem Solving',
-      'Communication', 'Mentoring', 'Technical Writing', 'Cross-functional Collaboration'
+      'Executive Leadership', 'Team Management', 'Strategic Planning', 'Problem Solving',
+      'Communication', 'Mentoring', 'Innovation Management', 'Cross-functional Collaboration',
+      'eSports Management', 'Game Development Leadership'
     ]
   },
   certifications: [
-    'AWS Certified Solutions Architect',
-    'Google Cloud Professional Developer',
-    'Certified Scrum Master (CSM)'
+    'Cybersecurity & Ethical Hacking',
+    'Game Development with Unreal Engine',
+    'Supply Chain Management & Automation'
   ],
   languages: [
-    { language: 'English', level: 'Native' },
-    { language: 'Spanish', level: 'Fluent' },
-    { language: 'French', level: 'Intermediate' }
+    { language: 'French', level: 'Native' },
+    { language: 'English', level: 'Fluent' },
+    { language: 'German', level: 'Intermediate' }
   ]
 })
 
