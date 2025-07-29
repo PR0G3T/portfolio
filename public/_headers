@@ -1,0 +1,10 @@
+# Set correct MIME types for JavaScript files
+/assets/*.js
+  Content-Type: application/javascript
+
+/assets/*.mjs
+  Content-Type: application/javascript
+
+# Enable CORS for assets
+/assets/*
+  Access-Control-Allow-Origin: *

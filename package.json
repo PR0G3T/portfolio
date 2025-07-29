@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
-    "build-only": "vite build && copy dist\\index.html dist\\404.html && copy public\\.nojekyll dist\\ && copy public\\.htaccess dist\\",
+    "build-only": "vite build && copy dist\\index.html dist\\404.html && copy public\\.nojekyll dist\\ && copy public\\_headers dist\\",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/"
