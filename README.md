@@ -1,6 +1,19 @@
-# cv
+# CV - Portfolio Personnel
 
-This template should help get you started developing with Vue 3 in Vite.
+Ce projet est un portfolio personnel développé avec Vue 3 et Vite, déployé automatiquement sur GitHub Pages.
+
+## 🚀 Déploiement Automatique
+
+Ce projet utilise GitHub Actions pour un déploiement automatique sur GitHub Pages. À chaque push sur la branche `main` ou `master`, le site est automatiquement construit et déployé.
+
+### Configuration GitHub Pages
+
+1. Allez dans les **Settings** de votre repository
+2. Naviguez vers **Pages** dans le menu de gauche
+3. Dans **Source**, sélectionnez **GitHub Actions**
+4. Le site sera accessible à l'adresse : `https://[votre-username].github.io/CV/`
+
+## 🛠️ Développement Local
 
 ## Recommended IDE Setup
 
