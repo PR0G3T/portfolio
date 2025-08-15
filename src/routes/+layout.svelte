@@ -55,5 +55,9 @@
 	{@render children?.()}
 </div>
 
+<a class="floating-download" href="{base}/CV.pdf" download aria-label="Download CV">
+	<img src="{base}/icons/download.svg" alt="Download" />
+</a>
+
 <!-- Optional minimal profile avatar at top of layout (hidden by default) -->
 <!-- <img src={profileSrc} alt="Profile" width="64" height="64" /> -->

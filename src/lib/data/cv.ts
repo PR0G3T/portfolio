@@ -53,11 +53,11 @@ const cv: CvData = {
 	title: 'PR0G3T',
 	summary:
 		"I’ve always been fascinated by what humankind is capable of achieving. I love watching it grow, and I’m lucky enough to witness it.​ I intend to have a global impact, to be forever inscribed in History, immortalized by human consciousness.",
-	location: 'Lyon, Auvergne-Rhône-Alpes, France',
+	location: '',
 	links: [
 		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/killian-ott/' }
 	],
-	skills: ['Leadership', 'Entrepreneurship', 'Software Development', 'Ethical Hacking', 'eSports'],
+	skills: ['Artificial Intelligence (AI)', 'Computer Science', 'Cybersecurity'],
 	experience: [
 		{
 			company: 'Team Cardinalis',
@@ -122,7 +122,9 @@ const cv: CvData = {
 				'Grade: Fairly Good. Secondary school in Villefranche-sur-Saône, part of the Lyon education authority.'
 		}
 	],
-	certifications: []
+	certifications: [
+		{ name: 'Professional Cloud Architect', issuer: 'Google Cloud', year: '2021' }
+	]
 };
 
 export default cv;

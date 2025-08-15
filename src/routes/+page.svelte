@@ -13,6 +13,12 @@
 		'Team Cardinalis': 'teamcardinalis'
 	};
 
+	// Brand-specific casing overrides
+	const brandCaseMap: Record<string, string> = {
+		'Körber Supply Chain Software': 'KÖRBER Supply Chain Software'
+	};
+	const displayCompany = (name: string): string => brandCaseMap[name] ?? name;
+
 	const getLogoPath = (company: string): string => {
 		const override = companyLogoMap[company];
 		return override ? `${base}/images/companies/${override}.png` : `${base}/images/companies/default.png`;
@@ -36,17 +42,20 @@
 
 <main class="container">
 	<section style="padding-top: 3rem; padding-bottom: 1.5rem;" class="fade-in">
-		<div style="display:flex; align-items:center; gap:0.75rem; flex-wrap: wrap;">
-			<img src={`${base}/images/profile.png`} alt="{cv.name}" width="56" height="56" style="width:56px; height:56px; border-radius: 50%; border: 1px solid var(--divider); object-fit: cover; background:#fff;" />
-			<h1 style="font-size: clamp(1.75rem, 2.5vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em;">
+		<div style="display:flex; align-items:center; gap:1.5rem; flex-wrap: wrap;">
+			<img src={`${base}/images/profile.png`} alt={cv.name} width="80" height="80" style="width:80px; height:80px; border-radius: 50%; border: 1px solid var(--divider); object-fit: cover; background:#fff;" />
+			<h1 style="font-size: 1.9rem; font-weight: 700; letter-spacing: -0.01em;">
 				{cv.name}
 			</h1>
 		</div>
-		<p class="muted" style="margin-top: 0.25rem">{cv.title} - {cv.location}</p>
+		<p class="muted" style="margin-top: 0.25rem">{cv.title}</p>
 
 		<nav style="margin-top: 0.75rem; display:flex; align-items:center; gap:1rem;">
 			<a class="icon-link" href="https://www.linkedin.com/in/killian-ott/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
 				<span class="svg-icon linkedin-mask" style={`--mask-url: url('${base}/icons/linkedin.svg')` } aria-hidden="true"></span>
+			</a>
+			<a class="icon-link github" href="https://github.com/PR0G3T" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+				<span class="svg-icon" style={`--mask-url: url('${base}/icons/github.svg')` } aria-hidden="true"></span>
 			</a>
 		</nav>
 	</section>
@@ -75,13 +84,13 @@
 		<h2 id="experience-title" class="section-title">Experience</h2>
 		<div>
 			{#each cv.experience as exp}
-				<article style="margin-bottom: 1.25rem;">
+				<article style="margin-bottom: 2rem;">
 					<header>
 						<div style="display:flex; gap:0.5rem; align-items: center; flex-wrap: wrap;">
 							<img src={getLogoPath(exp.company)} alt={exp.company} width="24" height="24" on:error={handleImgError}
 								style="width:24px; height:24px; object-fit: contain; border-radius:4px; border:1px solid var(--divider); background:#fff;" />
 							<h3 style="font-weight: 600;">{exp.role}</h3>
-							<span class="muted">@ {exp.company}</span>
+							<span class="muted">@ {displayCompany(exp.company)}</span>
 						</div>
 						<p class="muted" style="font-size: 0.9rem;">{exp.period}{exp.location ? ` - ${exp.location}` : ''}</p>
 					</header>
@@ -121,7 +130,7 @@
 			<h2 id="education-title" class="section-title">Education</h2>
 			<div>
 				{#each cv.education as edu}
-					<article style="margin-bottom: 1rem;">
+					<article style="margin-bottom: 2rem;">
 						<div style="display:flex; align-items:center; gap:0.5rem; flex-wrap: wrap;">
 							<img src={getSchoolLogoPath(edu.school)} alt={edu.school} width="20" height="20" on:error={handleImgError}
 								style="width:20px; height:20px; object-fit: contain; border-radius:4px; border:1px solid var(--divider); background:#fff;" />
@@ -139,8 +148,8 @@
 
 	{#if cv.certifications?.length}
 		<div class="section-sep"></div>
-		<section class="grid-2" aria-labelledby="certs-title">
-			<h2 id="certs-title" class="section-title">Certifications</h2>
+		<section class="grid-2" aria-labelledby="licenses-title">
+			<h2 id="licenses-title" class="section-title">Licenses & certifications</h2>
 			<div>
 				{#each cv.certifications as cert}
 					<p style="margin-bottom: 0.35rem;">
