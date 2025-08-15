@@ -1,0 +1,10 @@
+@use 'variables' as v;
+
+// Top Skills styles
+.top-skill-tag {
+  background: v.$primary-color;
+  color: v.$background-white;
+  border-color: v.$primary-color;
+  font-weight: 600;
+  font-size: v.$font-size-sm;
+} 

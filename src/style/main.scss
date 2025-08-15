@@ -1,0 +1,12 @@
+// Import all SCSS files using modern @use syntax
+@use 'variables';
+@use 'mixins';
+@use 'base';
+@use 'layout';
+@use 'header';
+@use 'skills';
+@use 'top-skills';
+@use 'experience';
+@use 'education';
+@use 'certifications';
+@use 'states'; 

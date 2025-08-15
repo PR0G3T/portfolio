@@ -1,0 +1,783 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+
+// DRY Card Components - Single source of truth for all card types
+@mixin generate-card-components {
+  // Experience Cards
+  .experience-cards {
+    @include m.layout-component(
+      'grid',
+      (
+        'columns': repeat(auto-fit, minmax(300px, 1fr)),
+        // Largeur optimisée pour l'agencement vertical
+        'mobile-columns': 1fr,
+      )
+    );
+
+    // Ajout de breakpoints pour un agencement plus flexible
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr; // Une seule colonne sur mobile
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(280px, 1fr)
+      ); // Colonnes adaptatives sur tablette
+    }
+  }
+
+  .experience-card {
+    @include m.card-component(
+      'experience',
+      (
+        'header-layout': 'flex-start',
+        'use-logo': true,
+        'use-icon': false,
+        'gap': v.$spacing-lg,
+        'mobile-gap': v.$spacing-md,
+      )
+    );
+  }
+
+  .position {
+    @include m.text-component(
+      'position',
+      (
+        'size': v.$font-size-2xl,
+        'color': v.$primary-color,
+        'weight': 600,
+        'margin': 0,
+      )
+    );
+  }
+
+  .company {
+    @include m.text-component(
+      'company',
+      (
+        'size': v.$font-size-lg,
+        'color': v.$text-light,
+        'weight': 500,
+        'margin': 0,
+      )
+    );
+  }
+
+  .period {
+    @include m.text-component(
+      'period',
+      (
+        'size': v.$font-size-xs,
+        'color': v.$text-muted,
+        'weight': 500,
+        'margin': 0,
+      )
+    );
+  }
+
+  // Education Cards
+  .education-cards {
+    @include m.layout-component(
+      'flex',
+      (
+        'direction': 'column',
+        'gap': v.$spacing-lg,
+      )
+    );
+  }
+
+  .education-card {
+    @include m.card-component(
+      'education',
+      (
+        'header-layout': 'flex-start',
+        'use-logo': true,
+        'use-icon': false,
+        'gap': v.$spacing-md,
+        'mobile-gap': v.$spacing-sm,
+      )
+    );
+  }
+
+  .education-card-degree {
+    @include m.text-component(
+      'degree',
+      (
+        'size': v.$font-size-xl,
+        'color': v.$primary-color,
+        'weight': 600,
+        'margin': 0 0 v.$spacing-sm 0,
+        'line-height': 1.3,
+      )
+    );
+  }
+
+  .education-card-school {
+    @include m.text-component(
+      'school',
+      (
+        'size': v.$font-size-base,
+        'color': v.$text-light,
+        'weight': 500,
+        'margin': 0 0 v.$spacing-xs 0,
+      )
+    );
+  }
+
+  .education-card-year {
+    @include m.text-component(
+      'year',
+      (
+        'size': v.$font-size-sm,
+        'color': v.$text-muted,
+        'weight': 500,
+        'margin': 0 0 v.$spacing-sm 0,
+      )
+    );
+  }
+
+  .education-card-specialization {
+    @include m.text-component(
+      'specialization',
+      (
+        'size': v.$font-size-sm,
+        'color': v.$text-secondary,
+        'weight': 400,
+        'margin': 0,
+        'line-height': 1.5,
+      )
+    );
+  }
+
+  // Language Cards
+  .language-cards {
+    @include m.layout-component(
+      'flex',
+      (
+        'wrap': 'wrap',
+        'gap': v.$spacing-md,
+        'mobile-gap': v.$spacing-sm,
+      )
+    );
+
+    // Ajout de breakpoints pour un agencement plus flexible
+    @media (max-width: 768px) {
+      justify-content: center; // Centre les cartes sur mobile
+    }
+  }
+
+  .language-card {
+    flex: 1;
+    min-width: 180px; // Largeur optimisée pour l'agencement vertical
+    max-width: 250px; // Largeur optimisée pour l'agencement vertical
+    @include m.card-component(
+      'language',
+      (
+        'header-layout': 'flex-between',
+        'use-logo': false,
+        'use-icon': true,
+        'gap': v.$spacing-md,
+      )
+    );
+
+    @include m.mobile {
+      min-width: 150px; // Largeur optimisée pour mobile
+      max-width: none;
+      flex: 0 1 auto; // Permet aux cartes de se rétrécir naturellement
+    }
+  }
+
+  .language-card-name {
+    @include m.text-component(
+      'language-name',
+      (
+        'size': v.$font-size-lg,
+        'color': v.$primary-color,
+        'weight': 600,
+        'margin': 0 0 v.$spacing-xs 0,
+      )
+    );
+  }
+
+  .language-card-level {
+    @include m.text-component(
+      'language-level',
+      (
+        'size': v.$font-size-sm,
+        'color': v.$text-secondary,
+        'weight': 500,
+        'margin': 0,
+      )
+    );
+  }
+
+  // Certification Cards
+  .certification-cards {
+    @include m.layout-component(
+      'grid',
+      (
+        'columns': repeat(auto-fit, minmax(280px, 1fr)),
+        // Largeur optimisée pour l'agencement vertical
+        'mobile-columns': 1fr,
+      )
+    );
+
+    // Ajout de breakpoints pour un agencement plus flexible
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr; // Une seule colonne sur mobile
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(260px, 1fr)
+      ); // Colonnes adaptatives sur tablette
+    }
+  }
+
+  .certification-card {
+    @include m.card-component(
+      'certification',
+      (
+        'header-layout': 'flex-start',
+        'use-logo': true,
+        'use-icon': false,
+        'gap': v.$spacing-lg,
+        'mobile-gap': v.$spacing-md,
+      )
+    );
+  }
+
+  .certification-card-name {
+    @include m.text-component(
+      'certification-name',
+      (
+        'size': v.$font-size-lg,
+        'color': v.$primary-color,
+        'weight': 600,
+        'margin': 0,
+        'line-height': 1.3,
+      )
+    );
+  }
+
+  .certification-card-organization {
+    @include m.text-component(
+      'certification-org',
+      (
+        'size': v.$font-size-lg,
+        'color': v.$text-light,
+        'weight': 500,
+        'margin': 0,
+      )
+    );
+  }
+
+  .certification-card-date {
+    @include m.text-component(
+      'certification-date',
+      (
+        'size': v.$font-size-xs,
+        'color': v.$text-muted,
+        'weight': 500,
+        'margin': 0,
+      )
+    );
+  }
+
+  .certification-card-credential {
+    font-family: v.$mono-font;
+    background: v.$code-bg;
+    padding: v.$spacing-sm v.$spacing-md;
+    border-radius: v.$border-radius-md;
+    display: inline-block;
+    border: 1px solid v.$code-border;
+    letter-spacing: 0.02em;
+    word-break: break-all;
+    @include m.text-component(
+      'credential',
+      (
+        'size': v.$font-size-xs,
+        'color': v.$text-muted,
+        'weight': 500,
+        'margin': v.$spacing-xs 0 0 0,
+      )
+    );
+  }
+
+  .certification-card-skills {
+    margin: v.$spacing-md 0;
+    // Assure que le container s'adapte à la hauteur du contenu
+    height: auto;
+    min-height: fit-content;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+    @include m.layout-component(
+      'flex',
+      (
+        'wrap': 'wrap',
+        'gap': v.$spacing-sm,
+        'align': 'flex-start',
+      )
+    );
+  }
+
+  .certification-card-links {
+    margin-top: v.$spacing-lg;
+    padding-top: v.$spacing-lg;
+    border-top: 1px solid v.$border-light;
+  }
+
+  .certification-links-container {
+    @include m.layout-component(
+      'flex',
+      (
+        'wrap': 'wrap',
+        'gap': v.$spacing-sm,
+      )
+    );
+  }
+
+  .certification-link-button {
+    @include m.button-component('certification-link');
+  }
+
+  .certification-link-icon {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) saturate(100%) invert(40%) sepia(0%) saturate(0%) hue-rotate(0deg)
+      brightness(0.8) contrast(1);
+    flex-shrink: 0;
+  }
+
+  .certification-link-text {
+    white-space: nowrap;
+    overflow: hidden; // Gardé pour éviter le débordement
+    text-overflow: ellipsis; // Gardé pour les points de suspension
+    font-weight: 500;
+    max-width: 150px; // Largeur optimisée pour l'agencement vertical
+
+    // Ajout de breakpoints pour un agencement plus flexible
+    @media (max-width: 768px) {
+      max-width: 120px; // Largeur réduite sur mobile
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      max-width: 140px; // Largeur adaptée sur tablette
+    }
+  }
+}
+
+// DRY Header Components
+@mixin generate-header-components {
+  .header {
+    margin-bottom: v.$spacing-2xl;
+    padding-bottom: v.$spacing-xl;
+  }
+
+  .banner-container {
+    width: 100%;
+    margin-bottom: v.$spacing-xl;
+    border-radius: v.$border-radius-lg;
+    overflow: hidden;
+    box-shadow: v.$shadow-md;
+  }
+
+  .banner-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+
+    @include m.mobile {
+      height: 150px;
+    }
+  }
+
+  .header-content {
+    @include m.layout-component(
+      'flex',
+      (
+        'direction': 'row',
+        'wrap': 'wrap',
+        // Permet le wrap pour l'agencement vertical
+        'gap': v.$spacing-xl,
+        'align': 'flex-start',
+        'justify': 'space-between',
+      )
+    );
+
+    @include m.mobile {
+      flex-direction: column;
+      text-align: center;
+      gap: v.$spacing-md;
+    }
+
+    // Ajout de breakpoints pour un agencement plus flexible
+    @media (max-width: 768px) {
+      flex-direction: column; // Stack vertical sur mobile
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      flex-wrap: wrap; // Permet le wrap sur tablette
+      gap: v.$spacing-lg;
+    }
+  }
+
+  .header-left {
+    flex: 2;
+    min-width: 250px; // Largeur optimisée pour l'agencement vertical
+  }
+
+  .profile-section {
+    @include m.layout-component(
+      'flex',
+      (
+        'gap': v.$spacing-xl,
+        'wrap': 'wrap',
+        // Permet le wrap pour l'agencement vertical
+        'align': 'center',
+        'justify': 'center',
+      )
+    );
+
+    @include m.mobile {
+      justify-content: center;
+      text-align: center;
+    }
+
+    // Ajout de breakpoints pour un agencement plus flexible
+    @media (max-width: 768px) {
+      flex-direction: column; // Stack vertical sur mobile
+    }
+  }
+
+  .profile-photo {
+    flex-shrink: 0;
+  }
+
+  .profile-image {
+    width: v.$profile-image-size;
+    height: v.$profile-image-size;
+    border-radius: v.$border-radius-circle;
+    object-fit: cover;
+    box-shadow: v.$shadow-sm;
+
+    @include m.mobile {
+      width: v.$profile-image-size-mobile;
+      height: v.$profile-image-size-mobile;
+    }
+  }
+
+  .profile-info {
+    flex: 1;
+    min-width: 150px; // Largeur optimisée pour l'agencement vertical
+  }
+
+  .name {
+    @include m.text-component(
+      'name',
+      (
+        'size': v.$font-size-5xl,
+        'color': v.$primary-color,
+        'weight': 700,
+        'margin': 0 0 v.$spacing-sm 0,
+        'line-height': 1.2,
+        'mobile-size': v.$font-size-4xl,
+      )
+    );
+  }
+
+  .title {
+    @include m.text-component(
+      'title',
+      (
+        'size': v.$font-size-3xl,
+        'color': v.$text-muted,
+        'weight': 400,
+        'margin': 0,
+        'mobile-size': v.$font-size-xl,
+      )
+    );
+  }
+
+  .header-right {
+    flex: 1;
+    text-align: right;
+    min-width: 180px; // Largeur optimisée pour l'agencement vertical
+
+    @include m.mobile {
+      text-align: center;
+      width: 100%;
+    }
+
+    // Ajout de breakpoints pour un agencement plus flexible
+    @media (max-width: 768px) {
+      text-align: center; // Centre sur mobile
+      width: 100%;
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      flex: 1; // Prend l'espace disponible sur tablette
+    }
+  }
+
+  .contact-info {
+    p {
+      margin: v.$spacing-sm 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: v.$spacing-sm;
+      @include m.text-component(
+        'contact',
+        (
+          'size': v.$font-size-sm,
+          'color': v.$text-secondary,
+          'weight': 400,
+          'margin': v.$spacing-sm 0,
+        )
+      );
+
+      @include m.mobile {
+        justify-content: center;
+      }
+    }
+  }
+
+  .contact-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    filter: brightness(0) saturate(100%);
+  }
+
+  .contact-link {
+    color: v.$text-secondary;
+  }
+
+  .profile-text {
+    text-align: justify;
+    @include m.text-component(
+      'profile-text',
+      (
+        'size': v.$font-size-lg,
+        'color': v.$text-secondary,
+        'weight': 400,
+        'margin': 0,
+        'line-height': 1.7,
+      )
+    );
+  }
+}
+
+// DRY Skills Components
+@mixin generate-skills-components {
+  .skills-grid {
+    // Assure que la grille s'adapte à la hauteur du contenu
+    height: auto;
+    min-height: fit-content;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+
+    @include m.layout-component(
+      'grid',
+      (
+        'columns': 1fr 1fr,
+        'mobile-columns': 1fr,
+      )
+    );
+
+    // Responsive design amélioré
+    @include m.mobile {
+      grid-template-columns: 1fr;
+      gap: v.$spacing-lg;
+    }
+  }
+
+  .skill-category {
+    height: auto;
+    min-height: fit-content;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+
+    h4 {
+      @include m.text-component(
+        'skill-category',
+        (
+          'size': v.$font-size-xl,
+          'color': v.$primary-color,
+          'weight': 600,
+          'margin': 0 0 v.$spacing-md 0,
+        )
+      );
+    }
+  }
+
+  .skill-tags {
+    // Assure que le container s'adapte à la hauteur du contenu
+    height: auto;
+    min-height: fit-content;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+
+    @include m.layout-component(
+      'flex',
+      (
+        'wrap': 'wrap',
+        'gap': v.$spacing-sm,
+        'align': 'flex-start',
+      )
+    );
+  }
+
+  .skill-tag {
+    background: v.$success-bg;
+    color: v.$text-light;
+    padding: v.$spacing-sm v.$spacing-md;
+    border-radius: v.$border-radius-xl;
+    border: 1px solid v.$border-light;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: normal; // Permet le retour à la ligne si nécessaire
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%; // Empêche le débordement
+    flex-shrink: 0; // Empêche la compression
+    @include m.text-component(
+      'skill-tag',
+      (
+        'size': v.$font-size-xs,
+        'color': v.$text-light,
+        'weight': 400,
+        'margin': 0,
+      )
+    );
+
+    // Responsive design pour les skills
+    @include m.mobile {
+      font-size: v.$font-size-xs;
+      padding: v.$spacing-xs v.$spacing-sm;
+    }
+
+    // Assure que les tags longs se cassent correctement
+    @media (max-width: 480px) {
+      white-space: normal;
+      text-align: center;
+      min-width: 60px;
+    }
+  }
+}
+
+// DRY Modal Components
+@mixin generate-modal-components {
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    @include m.flex-center;
+    z-index: 1000;
+    padding: v.$spacing-lg;
+  }
+
+  .modal-content {
+    background: v.$background-white;
+    border-radius: v.$border-radius-lg;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid v.$border-light;
+  }
+
+  .modal-close-button {
+    position: absolute;
+    top: v.$spacing-md;
+    right: v.$spacing-md;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    @include m.flex-center;
+    cursor: pointer;
+    z-index: 10;
+    @include m.transition-base;
+    color: white;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.7);
+      transform: scale(1.1);
+    }
+
+    &:focus {
+      outline: 2px solid v.$primary-color;
+      outline-offset: 2px;
+    }
+  }
+
+  .modal-close-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .modal-body {
+    padding: v.$spacing-lg;
+    @include m.flex-center;
+    min-height: 200px;
+  }
+
+  .modal-certification-image {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: v.$border-radius-md;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  @include m.mobile {
+    .modal-overlay {
+      padding: v.$spacing-sm;
+    }
+
+    .modal-content {
+      max-width: 95vw;
+      max-height: 95vh;
+    }
+
+    .modal-body {
+      padding: v.$spacing-md;
+    }
+
+    .modal-close-button {
+      top: v.$spacing-sm;
+      right: v.$spacing-sm;
+      width: 36px;
+      height: 36px;
+    }
+
+    .modal-close-icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Generate all components
+@include generate-card-components;
+@include generate-header-components;
+@include generate-skills-components;
+@include generate-modal-components;

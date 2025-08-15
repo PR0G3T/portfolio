@@ -1,0 +1,152 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+@use 'components/card';
+
+// Education cards styles
+.education-cards {
+  @extend .cards-column;
+}
+
+.education-card {
+  @extend .card;
+}
+
+.education-card-header {
+  @extend .card-header;
+  @include m.flex-start;
+  gap: v.$spacing-md;
+
+  @include m.mobile {
+    flex-direction: column;
+    gap: v.$spacing-sm;
+  }
+}
+
+.education-card-info {
+  @extend .card-info;
+}
+
+.education-card-logo {
+  @extend .card-logo;
+}
+
+.education-card-logo-image {
+  @extend .card-logo-image;
+}
+
+.education-card-degree {
+  font-size: v.$font-size-xl;
+  color: v.$primary-color;
+  margin: 0 0 v.$spacing-sm 0;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.education-card-school {
+  color: v.$text-light;
+  margin: 0 0 v.$spacing-xs 0;
+  font-weight: 500;
+  font-size: v.$font-size-base;
+}
+
+.education-card-year {
+  color: v.$text-muted;
+  margin: 0 0 v.$spacing-sm 0;
+  font-size: v.$font-size-sm;
+  font-weight: 500;
+}
+
+.education-card-specialization {
+  color: v.$text-secondary;
+  font-size: v.$font-size-sm;
+  line-height: 1.5;
+  margin: 0;
+}
+
+// Language cards styles
+.language-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$spacing-md;
+  width: 100%;
+
+  @include m.mobile {
+    gap: v.$spacing-sm;
+  }
+}
+
+.language-card {
+  @extend .card;
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+
+  @include m.mobile {
+    min-width: 150px;
+    max-width: none;
+  }
+}
+
+.language-card-header {
+  @extend .card-header;
+  @include m.flex-between;
+  gap: v.$spacing-md;
+}
+
+.language-card-info {
+  @extend .card-info;
+}
+
+.language-card-name {
+  font-size: v.$font-size-lg;
+  color: v.$primary-color;
+  margin: 0 0 v.$spacing-xs 0;
+  font-weight: 600;
+}
+
+.language-card-level {
+  color: v.$text-secondary;
+  font-size: v.$font-size-sm;
+  margin: 0;
+  font-weight: 500;
+}
+
+.language-card-icon {
+  @extend .card-icon;
+}
+
+// Certification cards styles
+.certification-cards {
+  @extend .cards-column-sm;
+}
+
+.certification-card {
+  @extend .card;
+}
+
+.certification-card-header {
+  @include m.card-header;
+  @include m.flex-start;
+  gap: v.$spacing-lg;
+
+  @include m.mobile {
+    flex-direction: column;
+    gap: v.$spacing-md;
+  }
+}
+
+.certification-card-info {
+  @extend .card-info;
+}
+
+.certification-card-name {
+  font-size: v.$font-size-lg;
+  color: v.$primary-color;
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.certification-card-icon {
+  @extend .card-icon;
+} 

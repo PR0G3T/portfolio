@@ -1,0 +1,87 @@
+// Colors - Minimalist black, white and gray palette
+$primary-color: #000000;
+$text-primary: #000000;
+$text-secondary: #333333;
+$text-muted: #666666;
+$text-light: #444444;
+$background-light: #f8f8f8;
+$background-white: #ffffff;
+$border-light: #e0e0e0;
+$error-color: #000000;
+$error-light: #333333;
+$error-bg: #f5f5f5;
+$error-border: #d0d0d0;
+$error-text: #666666;
+$success-bg: #f8f8f8;
+$shadow-light: rgba(0, 0, 0, 0.08);
+$shadow-medium: rgba(0, 0, 0, 0.12);
+
+// Additional color variables for better organization
+$link-color: $text-secondary;
+$code-bg: #fafafa;
+$code-border: #f0f0f0;
+$mono-font: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius-md: 6px;
+$border-radius-lg: 8px;
+$border-radius-xl: 20px;
+$border-radius-circle: 50%;
+
+// Font sizes
+$font-size-xs: 0.9rem;
+$font-size-sm: 0.95rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.1rem;
+$font-size-xl: 1.2rem;
+$font-size-2xl: 1.3rem;
+$font-size-3xl: 1.5rem;
+$font-size-4xl: 2rem;
+$font-size-5xl: 2.5rem;
+
+// Breakpoints - Improved consistency
+$breakpoint-mobile-max: 768px;
+$breakpoint-tablet-min: 769px;
+$breakpoint-tablet-max: 1200px;
+$breakpoint-desktop-min: 1201px;
+
+// Legacy breakpoints for backward compatibility
+$breakpoint-mobile: $breakpoint-mobile-max;
+$breakpoint-tablet: $breakpoint-tablet-max;
+$breakpoint-desktop: $breakpoint-desktop-min;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-smooth: 0.3s ease;
+
+// Shadows
+$shadow-sm: 0 2px 10px $shadow-light;
+$shadow-md: 0 4px 20px $shadow-medium;
+$shadow-lg: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+// Layout
+$container-max-width: 1200px;
+$profile-image-size: 120px;
+$profile-image-size-mobile: 80px;
+$logo-size: 60px;
+$logo-size-mobile: 50px;
+$icon-size: 48px;
+$icon-size-mobile: 40px;
+
+// Z-index layers
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;

@@ -1,0 +1,57 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+// Common card styles
+.card {
+  @include m.card-base;
+}
+
+.card-header {
+  @include m.card-header;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-meta {
+  @include m.card-meta;
+}
+
+.card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-logo {
+  @include m.logo-base;
+  @include m.logo-mobile;
+}
+
+.card-logo-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: v.$border-radius-sm;
+}
+
+.card-icon {
+  @include m.icon-base;
+}
+
+// Card grid layouts
+.cards-grid {
+  @include m.grid-auto-fit;
+}
+
+.cards-column {
+  @include m.flex-column;
+  gap: v.$spacing-lg;
+  width: 100%;
+}
+
+.cards-column-sm {
+  @include m.flex-column;
+  gap: v.$spacing-md;
+  width: 100%;
+} 
