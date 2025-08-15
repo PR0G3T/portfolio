@@ -44,7 +44,7 @@
 	<section style="padding-top: 3rem; padding-bottom: 1.5rem;" class="fade-in">
 		<div style="display:flex; align-items:center; gap:1.5rem; flex-wrap: wrap;">
 			<img src={`${base}/images/profile.png`} alt={cv.name} width="80" height="80" style="width:80px; height:80px; border-radius: 50%; border: 1px solid var(--divider); object-fit: cover; background:#fff;" />
-			<h1 style="font-size: 1.9rem; font-weight: 700; letter-spacing: -0.01em;">
+			<h1 style="font-size: 2rem; font-weight: 700; letter-spacing: -0.01em;">
 				{cv.name}
 			</h1>
 		</div>
