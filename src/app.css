@@ -42,7 +42,7 @@ body {
 }
 
 /* Replace hard dividers with vertical rhythm */
-.section-sep { height: clamp(24px, 4vh, 32px); }
+.section-sep { height: clamp(32px, 6vh, 56px); }
 .group-gap { margin-top: 12px; }
 
 .muted { color: var(--muted); }

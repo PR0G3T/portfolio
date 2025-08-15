@@ -51,7 +51,7 @@
 	<script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
 </svelte:head>
 
-<div class="paper">
+<div class="paper" translate="no">
 	{@render children?.()}
 </div>
 
