@@ -76,9 +76,9 @@ p.muted {
 
 .section-title {
 	font-weight: 700;
-	letter-spacing: 0.02em;
+	letter-spacing: -0.01em;
 	text-transform: none;
-	font-size: 1.75rem;
+	font-size: 1.5rem;
 	color: var(--text);
 	margin-bottom: 0.25rem;
 }
@@ -96,6 +96,14 @@ p.muted {
 	content: "- ";
 }
 
+/* Plain lists without any markers (for experience items) */
+.list-plain {
+	list-style: none;
+	padding-left: 0;
+}
+.list-plain li { margin-bottom: 0.25rem; }
+.list-plain li::before { content: ""; }
+
 .link {
 	text-decoration: none;
 	border-bottom: 1px solid var(--divider);
@@ -112,6 +120,8 @@ p.muted {
 }
 .icon-link:hover { color: #0A66C2; }
 .icon-link.github:hover { color: #000000; }
+.icon-link.instagram:hover { color: #E4405F; }
+.icon-link.facebook:hover { color: #1877F2; }
 
 /* Mask-based SVG coloring (no change to source file) */
 .svg-icon {

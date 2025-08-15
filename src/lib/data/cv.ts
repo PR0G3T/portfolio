@@ -35,6 +35,11 @@ export interface CvCertificationItem {
 	link?: string;
 }
 
+export interface CvLanguageItem {
+	language: string;
+	proficiency: string;
+}
+
 export interface CvData {
 	name: string;
 	title: string;
@@ -46,6 +51,7 @@ export interface CvData {
 	projects?: CvProjectItem[];
 	education?: CvEducationItem[];
 	certifications?: CvCertificationItem[];
+	languages?: CvLanguageItem[];
 }
 
 const cv: CvData = {
@@ -123,7 +129,14 @@ const cv: CvData = {
 		}
 	],
 	certifications: [
-		{ name: 'Professional Cloud Architect', issuer: 'Google Cloud', year: '2021' }
+		{ name: 'Professional Cloud Architect', issuer: 'Google Cloud', year: '2021' },
+		{ name: 'Deep Learning', issuer: 'NVIDIA Deep Learning Institute', year: 'Mar 2025', link: 'https://learn.nvidia.com/certificates?id=Pxo6ElBlT6qkvVatGYfYtw' }
+	],
+	languages: [
+		{ language: 'English', proficiency: 'Professional working proficiency' },
+		{ language: 'French', proficiency: 'Native or bilingual proficiency' },
+		{ language: 'French Sign Languages', proficiency: 'Elementary proficiency' },
+		{ language: 'Spanish', proficiency: 'Elementary proficiency' }
 	]
 };
 
