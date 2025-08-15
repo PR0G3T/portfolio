@@ -1,5 +1,6 @@
 <script lang="ts">
 	import cv from '$lib/data/cv';
+	import { base } from '$app/paths';
 
 	const openInNewTab = (href: string | undefined) => {
 		if (!href) return;
@@ -14,12 +15,12 @@
 
 	const getLogoPath = (company: string): string => {
 		const override = companyLogoMap[company];
-		return override ? `/images/companies/${override}.png` : '/images/companies/default.png';
+		return override ? `${base}/images/companies/${override}.png` : `${base}/images/companies/default.png`;
 	};
 
 	const handleImgError = (event: Event) => {
 		const target = event.currentTarget as HTMLImageElement | null;
-		if (target) target.src = '/images/companies/default.png';
+		if (target) target.src = `${base}/images/companies/default.png`;
 	};
 
 	const schoolLogoMap: Record<string, string> = {
@@ -29,14 +30,14 @@
 
 	const getSchoolLogoPath = (school: string): string => {
 		const override = schoolLogoMap[school];
-		return override ? `/images/schools/${override}.png` : '/images/schools/default.png';
+		return override ? `${base}/images/schools/${override}.png` : `${base}/images/schools/default.png`;
 	};
 </script>
 
 <main class="container">
 	<section style="padding-top: 3rem; padding-bottom: 1.5rem;" class="fade-in">
 		<div style="display:flex; align-items:center; gap:0.75rem; flex-wrap: wrap;">
-			<img src="/images/profile.png" alt="{cv.name}" width="56" height="56" style="width:56px; height:56px; border-radius: 50%; border: 1px solid var(--divider); object-fit: cover; background:#fff;" />
+			<img src={`${base}/images/profile.png`} alt="{cv.name}" width="56" height="56" style="width:56px; height:56px; border-radius: 50%; border: 1px solid var(--divider); object-fit: cover; background:#fff;" />
 			<h1 style="font-size: clamp(1.75rem, 2.5vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em;">
 				{cv.name}
 			</h1>
@@ -45,7 +46,7 @@
 
 		<nav style="margin-top: 0.75rem; display:flex; align-items:center; gap:1rem;">
 			<a class="icon-link" href="https://www.linkedin.com/in/killian-ott/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-				<span class="svg-icon linkedin-mask" aria-hidden="true"></span>
+				<span class="svg-icon linkedin-mask" style={`--mask-url: url('${base}/icons/linkedin.svg')` } aria-hidden="true"></span>
 			</a>
 		</nav>
 	</section>

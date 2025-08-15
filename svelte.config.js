@@ -14,7 +14,10 @@ const config = {
 			fallback: undefined,
 			precompress: false
 		}),
-		prerender: { entries: ['*'] }
+		prerender: { entries: ['*'] },
+		paths: {
+			base: process.env.NODE_ENV === 'production' ? '/CV' : ''
+		}
 	}
 };
 

@@ -116,11 +116,11 @@ body {
 	-webkit-mask-repeat: no-repeat;
 	-webkit-mask-position: center;
 	-webkit-mask-size: contain;
+	/* dynamic mask via CSS var supplied inline */
+	-webkit-mask-image: var(--mask-url);
+	mask-image: var(--mask-url);
 }
-.linkedin-mask {
-	mask-image: url('/icons/linkedin.svg');
-	-webkit-mask-image: url('/icons/linkedin.svg');
-}
+.linkedin-mask { }
 .icon-link:hover .svg-icon { background-color: #0A66C2; }
 
 /* No animations */

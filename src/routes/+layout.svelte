@@ -1,7 +1,8 @@
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-    const profileSrc = '/images/profile.png';
+    import { base } from '$app/paths';
+    const profileSrc = `${base}/images/profile.png`;
 
 	let { children } = $props();
 

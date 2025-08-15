@@ -29,7 +29,7 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Create 404.html (optional)
+      - name: Create 404.html (SPA fallback)
         run: cp docs/index.html docs/404.html
       - name: Create .nojekyll
         run: touch docs/.nojekyll
