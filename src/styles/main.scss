@@ -1,7 +1,0 @@
-// Import all SCSS files using modern @use syntax
-@use 'variables';
-@use 'mixins';
-@use 'base';
-@use 'layout';
-@use 'components'; // DRY components - replaces individual component files
-@use 'states';
