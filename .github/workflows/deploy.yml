@@ -29,20 +29,18 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Create 404.html
-        run: cp build/index.html build/404.html
+      - name: Create 404.html (optional)
+        run: cp docs/index.html docs/404.html
       - name: Create .nojekyll
-        run: touch build/.nojekyll
-      - name: Verify manifest.json
+        run: touch docs/.nojekyll
+      - name: List output
         run: |
-          echo "Checking if manifest.json exists at root:"
-          ls -la build/
-          echo "Content of manifest.json:"
-          cat build/manifest.json
+          echo "Listing docs output:"
+          ls -la docs/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build
+          path: docs
   deploy:
     environment:
       name: github-pages
