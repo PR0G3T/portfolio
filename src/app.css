@@ -9,6 +9,8 @@
 	--muted: #6b7280; /* gray-500 */
 	--divider: #e5e7eb; /* gray-200 */
 	--link: #0a0a0a;
+	--scrollbar-thumb: #4b5563; /* gray-600 */
+	--scrollbar-thumb-hover: #6b7280; /* gray-500 */
 }
 
 html,
@@ -41,6 +43,14 @@ body {
 	margin-inline: auto;
 }
 
+/* Mobile: edge-to-edge vertically */
+@media (max-width: 640px) {
+	.paper {
+		margin-block: 0;
+		border-radius: 0;
+	}
+}
+
 /* Replace hard dividers with vertical rhythm */
 .section-sep { height: clamp(32px, 6vh, 56px); }
 .group-gap { margin-top: 12px; }
@@ -52,6 +62,9 @@ p,
 p.muted {
 	color: #585858;
 }
+
+/* Slightly increased line-height for section items */
+p { line-height: 1.65; }
 
 .tag {
 	display: inline-block;
@@ -106,10 +119,14 @@ p.muted {
 
 .link {
 	text-decoration: none;
-	border-bottom: 1px solid var(--divider);
+	border-bottom: 0;
 /*	transition: color 150ms ease, border-color 150ms ease;*/
 }
-.link:hover { border-color: var(--text); color: var(--link); }
+.link:hover { color: var(--link); }
+
+/* Specific style for certification credential links */
+.cred-link { color: #116dff; font-size: 0.85rem; }
+.cred-link:hover { color: #116dff; }
 
 /* LinkedIn icon styling: black by default, blue on hover */
 .icon-link {
@@ -154,6 +171,23 @@ p.muted {
 		animation-delay: 0.01ms !important;
 	}
 }
+
+/* Dark custom scrollbar */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+/* WebKit */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+	background-color: var(--scrollbar-thumb);
+	border-radius: 9999px;
+	border: 2px solid transparent;
+	background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover { background-color: var(--scrollbar-thumb-hover); }
 
 .prose p { margin: 0; }
 

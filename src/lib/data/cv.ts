@@ -129,8 +129,8 @@ const cv: CvData = {
 		}
 	],
 	certifications: [
-		{ name: 'Professional Cloud Architect', issuer: 'Google Cloud', year: '2021' },
-		{ name: 'Deep Learning', issuer: 'NVIDIA Deep Learning Institute', year: 'Mar 2025', link: 'https://learn.nvidia.com/certificates?id=Pxo6ElBlT6qkvVatGYfYtw' }
+		{ name: 'Deep Learning', issuer: 'NVIDIA Deep Learning Institute', year: 'Mar 2025', link: 'https://learn.nvidia.com/certificates?id=Pxo6ElBlT6qkvVatGYfYtw' },
+		{ name: 'Open Science', issuer: 'NASA - National Aeronautics and Space Administration', year: 'Dec 2024', link: 'https://orcid.org/0009-0001-2059-565X' }
 	],
 	languages: [
 		{ language: 'English', proficiency: 'Professional working proficiency' },

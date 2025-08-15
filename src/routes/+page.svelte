@@ -38,6 +38,17 @@
 		const override = schoolLogoMap[school];
 		return override ? `${base}/images/schools/${override}.png` : `${base}/images/schools/default.png`;
 	};
+
+	// Issuer logos for certifications (fallback to companies/default)
+	const issuerLogoMap: Record<string, string> = {
+		'Google Cloud': 'google',
+		'NVIDIA Deep Learning Institute': 'nvidia',
+		'NASA - National Aeronautics and Space Administration': 'nasa'
+	};
+	const getIssuerLogoPath = (issuer: string): string => {
+		const override = issuerLogoMap[issuer];
+		return override ? `${base}/images/companies/${override}.png` : `${base}/images/companies/default.png`;
+	};
 </script>
 
 <main class="container">
@@ -96,18 +107,21 @@
 				<article style="margin-bottom: 2rem;">
 					<header>
 						<div style="display:flex; gap:0.5rem; align-items: center; flex-wrap: wrap;">
-							<img src={getLogoPath(exp.company)} alt={exp.company} width="24" height="24" on:error={handleImgError}
-								style="width:24px; height:24px; object-fit: contain; border-radius:4px; border:1px solid var(--divider); background:#fff;" />
+							<img src={getLogoPath(exp.company)} alt={exp.company} width="28" height="28" on:error={handleImgError}
+								style="width:28px; height:28px; object-fit: contain; border-radius:4px; border:1px solid var(--divider); background:#fff;" />
 							<h3 style="font-weight: 600;">{exp.role}</h3>
 							<span class="muted">@ {displayCompany(exp.company)}</span>
 						</div>
-						<p class="muted" style="font-size: 0.9rem;">{exp.period}{exp.location ? ` - ${exp.location}` : ''}</p>
+						<p class="muted" style="font-size: 0.9rem; margin-top: 0.25rem;">{exp.period}</p>
+						{#if exp.location}
+							<p class="muted" style="font-size: 0.9rem; margin-top: 0.1rem;">{exp.location}</p>
+						{/if}
 					</header>
-					<ul class="list-plain" style="margin-top: 0.5rem;">
+					<div style="margin-top: 0.25rem;">
 						{#each exp.items as item}
-							<li>{item}</li>
+							<p class="muted" style="font-size: 0.9rem; margin-top: 0.25rem;">{item}</p>
 						{/each}
-					</ul>
+					</div>
 				</article>
 			{/each}
 		</div>
@@ -141,11 +155,12 @@
 				{#each cv.education as edu}
 					<article style="margin-bottom: 2rem;">
 						<div style="display:flex; align-items:center; gap:0.5rem; flex-wrap: wrap;">
-							<img src={getSchoolLogoPath(edu.school)} alt={edu.school} width="20" height="20" on:error={handleImgError}
-								style="width:20px; height:20px; object-fit: contain; border-radius:4px; border:1px solid var(--divider); background:#fff;" />
+							<img src={getSchoolLogoPath(edu.school)} alt={edu.school} width="28" height="28" on:error={handleImgError}
+								style="width:28px; height:28px; object-fit: contain; border-radius:4px; border:1px solid var(--divider); background:#fff;" />
 							<h3 style="font-weight:600;">{edu.degree}</h3>
 						</div>
-						<p class="muted">{edu.school} - {edu.period}</p>
+						<p class="muted">{edu.school}</p>
+						<p class="muted" style="font-size: 0.9rem; margin-top: 0.1rem;">{edu.period}</p>
 						{#if edu.details}
 							<p class="muted" style="font-size: 0.9rem; margin-top: 0.25rem;">{edu.details}</p>
 						{/if}
@@ -164,12 +179,20 @@
 					<article style="margin-bottom: 2rem;">
 						<header>
 							<div style="display:flex; align-items:center; gap:0.5rem; flex-wrap: wrap;">
+								<img src={getIssuerLogoPath(cert.issuer)} alt={cert.issuer} width="28" height="28" on:error={handleImgError}
+									style="width:28px; height:28px; object-fit: contain; border-radius:4px; border:1px solid var(--divider); background:#fff;" />
 								<h3 style="font-weight:600;">{cert.name}</h3>
 								{#if cert.link}
-									<a class="link" href={cert.link} rel="noopener noreferrer" target="_blank">Verify</a>
+									<!-- Verify link moved below -->
 								{/if}
 							</div>
-							<p class="muted">{cert.issuer}{cert.year ? ` - ${cert.year}` : ''}</p>
+							<p class="muted">{cert.issuer}</p>
+							{#if cert.year}
+								<p class="muted" style="font-size: 0.9rem; margin-top: 0.1rem;">{cert.year}</p>
+							{/if}
+							{#if cert.link}
+								<a class="link cred-link" href={cert.link} rel="noopener noreferrer" target="_blank" style="display:inline-block; margin-top: 0.25rem;">Credentials ➜</a>
+							{/if}
 						</header>
 					</article>
 				{/each}
