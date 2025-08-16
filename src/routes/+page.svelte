@@ -104,7 +104,7 @@
 		<h2 id="experience-title" class="section-title">Experience</h2>
 		<div>
 			{#each cv.experience as exp}
-				<article style="margin-bottom: 2rem;">
+				<article class="item-block">
 					<header>
 						<div style="display:flex; gap:0.5rem; align-items: center; flex-wrap: wrap;">
 							<img src={getLogoPath(exp.company)} alt={exp.company} width="28" height="28" on:error={handleImgError}
@@ -112,14 +112,14 @@
 							<h3 style="font-weight: 600;">{exp.role}</h3>
 							<span class="muted">@ {displayCompany(exp.company)}</span>
 						</div>
-						<p class="muted" style="font-size: 0.9rem; margin-top: 0.25rem;">{exp.period}</p>
+						<p class="muted item-meta">{exp.period}</p>
 						{#if exp.location}
-							<p class="muted" style="font-size: 0.9rem; margin-top: 0.1rem;">{exp.location}</p>
+							<p class="muted item-meta">{exp.location}</p>
 						{/if}
 					</header>
-					<div style="margin-top: 0.25rem;">
+					<div>
 						{#each exp.items as item}
-							<p class="muted" style="font-size: 0.9rem; margin-top: 0.25rem;">{item}</p>
+							<p class="muted item-text">{item}</p>
 						{/each}
 					</div>
 				</article>
@@ -133,14 +133,14 @@
 			<h2 id="projects-title" class="section-title">Projects</h2>
 			<div>
 				{#each cv.projects as project}
-					<article style="margin-bottom: 1.25rem;">
+					<article class="item-block">
 						<header style="display:flex; align-items: baseline; gap:0.5rem; flex-wrap: wrap;">
 							<h3 style="font-weight:600;">{project.name}</h3>
 							{#if project.link}
 								<a class="link" href={project.link} rel="noopener noreferrer" target="_blank">Link</a>
 							{/if}
 						</header>
-						<p class="muted" style="margin-top: 0.25rem">{project.description}</p>
+						<p class="muted item-text">{project.description}</p>
 					</article>
 				{/each}
 			</div>
@@ -153,16 +153,16 @@
 			<h2 id="education-title" class="section-title">Education</h2>
 			<div>
 				{#each cv.education as edu}
-					<article style="margin-bottom: 2rem;">
+					<article class="item-block">
 						<div style="display:flex; align-items:center; gap:0.5rem; flex-wrap: wrap;">
 							<img src={getSchoolLogoPath(edu.school)} alt={edu.school} width="28" height="28" on:error={handleImgError}
 								style="width:28px; height:28px; object-fit: contain; border-radius:4px; border:1px solid var(--divider); background:#fff;" />
 							<h3 style="font-weight:600;">{edu.degree}</h3>
 						</div>
 						<p class="muted">{edu.school}</p>
-						<p class="muted" style="font-size: 0.9rem; margin-top: 0.1rem;">{edu.period}</p>
+						<p class="muted item-meta">{edu.period}</p>
 						{#if edu.details}
-							<p class="muted" style="font-size: 0.9rem; margin-top: 0.25rem;">{edu.details}</p>
+							<p class="muted item-text">{edu.details}</p>
 						{/if}
 					</article>
 				{/each}
@@ -176,7 +176,7 @@
 			<h2 id="licenses-title" class="section-title">Licenses & certifications</h2>
 			<div>
 				{#each cv.certifications as cert}
-					<article style="margin-bottom: 2rem;">
+					<article class="item-block">
 						<header>
 							<div style="display:flex; align-items:center; gap:0.5rem; flex-wrap: wrap;">
 								<img src={getIssuerLogoPath(cert.issuer)} alt={cert.issuer} width="28" height="28" on:error={handleImgError}
@@ -188,10 +188,10 @@
 							</div>
 							<p class="muted">{cert.issuer}</p>
 							{#if cert.year}
-								<p class="muted" style="font-size: 0.9rem; margin-top: 0.1rem;">{cert.year}</p>
+								<p class="muted item-meta">{cert.year}</p>
 							{/if}
 							{#if cert.link}
-								<a class="link cred-link" href={cert.link} rel="noopener noreferrer" target="_blank" style="display:inline-block; margin-top: 0.25rem;">Credentials ➜</a>
+								<a class="link cred-link" href={cert.link} rel="noopener noreferrer" target="_blank" style="display:inline-block;">Credentials ➜</a>
 							{/if}
 						</header>
 					</article>
@@ -206,7 +206,7 @@
 			<h2 id="languages-title" class="section-title">Languages</h2>
 			<div>
 				{#each cv.languages as lang}
-					<article style="margin-bottom: 1rem;">
+					<article class="item-block">
 						<h3 style="font-weight:600;">{lang.language}</h3>
 						<p class="muted" style="font-size: 0.9rem;">{lang.proficiency}</p>
 					</article>

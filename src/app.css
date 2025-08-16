@@ -190,6 +190,11 @@ p { line-height: 1.65; }
 
 .prose p { margin: 0; }
 
+/* Vertical rhythm utilities */
+.item-block { margin-bottom: 1.5rem; }
+.item-text { font-size: 0.9rem; margin-top: 0.25rem; }
+.item-meta { font-size: 0.9rem; margin-top: 0.25rem; }
+
 /* Floating download button */
 .floating-download {
 	position: fixed;
@@ -204,5 +209,11 @@ p { line-height: 1.65; }
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	cursor: pointer;
 }
 .floating-download img { width: 20px; height: 20px; display: block; }
+
+.floating-download[disabled] {
+	cursor: not-allowed;
+	opacity: 0.8;
+}
