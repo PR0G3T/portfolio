@@ -1,5 +1,4 @@
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+/* Tailwind directives removed: not used in this project build chain */
 
 /* Minimal white theme on dark canvas: generous whitespace, legible type, subtle dividers */
 :root {
@@ -156,7 +155,7 @@ p { line-height: 1.65; }
 	-webkit-mask-image: var(--mask-url);
 	mask-image: var(--mask-url);
 }
-.linkedin-mask { }
+.linkedin-mask { display: inline-block; }
 .icon-link:hover .svg-icon { background-color: #0A66C2; }
 
 /* No animations */

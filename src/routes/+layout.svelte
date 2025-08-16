@@ -24,6 +24,30 @@
 			'https://www.linkedin.com/in/killian-ott/'
 		]
 	};
+
+	let generating = $state(false);
+	const generatePdf = async () => {
+		if (generating) return;
+		generating = true;
+		try {
+			const html2pdf = (await import('html2pdf.js')).default;
+			const element = document.querySelector('.paper');
+			if (!element) return;
+			await html2pdf()
+				.set({
+					margin: 0,
+					filename: 'CV-Killian-OTT.pdf',
+					image: { type: 'jpeg', quality: 0.98 },
+					html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+					jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+					pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+				})
+				.from(element as HTMLElement)
+				.save();
+		} finally {
+			generating = false;
+		}
+	};
 </script>
 
 <svelte:head>
@@ -55,9 +79,9 @@
 	{@render children?.()}
 </div>
 
-<a class="floating-download" href="{base}/CV.pdf" download aria-label="Download CV">
+<button class="floating-download" onclick={generatePdf} aria-label="Download CV as PDF" disabled={generating}>
 	<img src="{base}/icons/download.svg" alt="Download" />
-</a>
+</button>
 
 <!-- Optional minimal profile avatar at top of layout (hidden by default) -->
 <!-- <img src={profileSrc} alt="Profile" width="64" height="64" /> -->
