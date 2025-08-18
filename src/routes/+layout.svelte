@@ -2,6 +2,7 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
     import { base } from '$app/paths';
+    import cv from '$lib/data/cv';
     const profileSrc = `${base}/images/profile.png`;
 
 	let { children } = $props();
@@ -9,6 +10,14 @@
 	const siteUrl = 'https://killian-ott.github.io/CV';
 	const ogImageUrl = `${siteUrl}/images/profile.png`;
 
+	// Organization (optional) for Team Cardinalis with logo
+	const orgTeamCardinalis = {
+		'@type': 'Organization',
+		name: 'Team Cardinalis',
+		logo: `${siteUrl}/images/companies/teamcardinalis.png`
+	};
+
+	// Person schema enriched
 	const jsonLd = {
 		'@context': 'https://schema.org',
 		'@type': 'Person',
@@ -16,6 +25,9 @@
 		alternateName: 'PR0G3T',
 		url: `${siteUrl}/`,
 		jobTitle: 'PR0G3T',
+		worksFor: orgTeamCardinalis,
+		alumniOf: (cv.education ?? []).map((e) => ({ '@type': 'EducationalOrganization', name: e.school })),
+		knowsAbout: cv.skills,
 		address: {
 			'@type': 'PostalAddress',
 			addressLocality: 'Lyon',
@@ -27,7 +39,8 @@
 			'https://www.linkedin.com/in/killian-ott/',
 			'https://github.com/PR0G3T',
 			'https://www.instagram.com/pr0g3t/',
-			'https://www.facebook.com/PR0G3T/'
+			'https://www.facebook.com/PR0G3T/',
+			'https://orcid.org/0009-0001-2059-565X'
 		]
 	};
 
@@ -37,6 +50,15 @@
 		url: `${siteUrl}/`,
 		name: 'Killian OTT — CV',
 		inLanguage: 'fr-FR'
+	};
+
+	// ProfilePage schema referencing the Person as mainEntity
+	const jsonLdProfile = {
+		'@context': 'https://schema.org',
+		'@type': 'ProfilePage',
+		url: `${siteUrl}/`,
+		inLanguage: 'fr-FR',
+		mainEntity: jsonLd
 	};
 
 	let generating = $state(false);
@@ -101,6 +123,9 @@
 	<meta property="og:description" content="CV/Portfolio de Killian OTT (PR0G3T). Profil, compétences, expériences, éducation et certifications." />
 	<meta property="og:url" content={`${siteUrl}/`} />
 	<meta property="og:image" content={ogImageUrl} />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta property="og:image:alt" content="CV de Killian OTT — IA, Cybersécurité" />
 	<meta property="og:site_name" content="Killian OTT — CV" />
 	<meta property="og:locale" content="fr_FR" />
 
@@ -109,9 +134,13 @@
 	<meta name="twitter:title" content="Killian &quot;PR0G3T&quot; OTT" />
 	<meta name="twitter:description" content="CV/Portfolio de Killian OTT (PR0G3T). Profil, compétences, expériences, éducation et certifications." />
 	<meta name="twitter:image" content={ogImageUrl} />
+	<!-- Optional: set your Twitter handle if available -->
+	<!-- <meta name="twitter:site" content="@votre_handle" /> -->
+	<!-- <meta name="twitter:creator" content="@votre_handle" /> -->
 	<link rel="icon" href={favicon} />
 	<script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
 	<script type="application/ld+json">{JSON.stringify(jsonLdSite)}</script>
+	<script type="application/ld+json">{JSON.stringify(jsonLdProfile)}</script>
 </svelte:head>
 
 <div class="paper" translate="no">

@@ -51,7 +51,7 @@ body {
 }
 
 /* Replace hard dividers with vertical rhythm */
-.section-sep { height: clamp(32px, 6vh, 56px); }
+.section-sep { height: 2rem; }
 .group-gap { margin-top: 12px; }
 
 .muted { color: var(--muted); }
@@ -92,7 +92,7 @@ p { line-height: 1.65; }
 	text-transform: none;
 	font-size: 1.5rem;
 	color: var(--text);
-	margin-bottom: 0.25rem;
+	margin-bottom: 0.5rem;
 }
 
 .section-title::after { content: '.'; }
@@ -191,9 +191,12 @@ p { line-height: 1.65; }
 .prose p { margin: 0; }
 
 /* Vertical rhythm utilities */
-.item-block { margin-bottom: 1.5rem; }
-.item-text { font-size: 0.9rem; margin-top: 0.25rem; }
-.item-meta { font-size: 0.9rem; margin-top: 0.25rem; }
+.item-block { margin-bottom: 1.25rem; }
+.item-block:last-child { margin-bottom: 0; }
+.item-block > header { margin-bottom: 0.4rem; }
+.item-text { font-size: 0.9rem; margin-top: 0.35rem; }
+.item-text + .item-text { margin-top: 0.35rem; }
+.item-meta { font-size: 0.9rem; margin-top: 0.2rem; }
 
 /* Floating download button */
 .floating-download {
@@ -216,4 +219,9 @@ p { line-height: 1.65; }
 .floating-download[disabled] {
 	cursor: not-allowed;
 	opacity: 0.8;
+}
+
+/* Headings: smaller h3 for a subtler hierarchy */
+h3 {
+	font-size: 1rem;
 }
