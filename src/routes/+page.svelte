@@ -65,16 +65,16 @@
 			</div>
 			<nav style="display:flex; align-items:center; gap:1rem; margin-left:auto;">
 				<a class="icon-link" href="https://www.linkedin.com/in/killian-ott/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-					<span class="svg-icon linkedin-mask" style={`--mask-url: url('${base}/icons/linkedin.svg')` } aria-hidden="true"></span>
+					<span class="svg-icon linkedin-mask" style={`--mask-url: url('/icons/linkedin.svg')` } aria-hidden="true"></span>
 				</a>
 				<a class="icon-link github" href="https://github.com/PR0G3T" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-					<span class="svg-icon" style={`--mask-url: url('${base}/icons/github.svg')` } aria-hidden="true"></span>
+					<span class="svg-icon" style={`--mask-url: url('/icons/github.svg')` } aria-hidden="true"></span>
 				</a>
 				<a class="icon-link instagram" href="https://www.instagram.com/pr0g3t/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-					<span class="svg-icon" style={`--mask-url: url('${base}/icons/instagram.svg')` } aria-hidden="true"></span>
+					<span class="svg-icon" style={`--mask-url: url('/icons/instagram.svg')` } aria-hidden="true"></span>
 				</a>
 				<a class="icon-link facebook" href="https://www.facebook.com/PR0G3T/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-					<span class="svg-icon" style={`--mask-url: url('${base}/icons/facebook.svg')` } aria-hidden="true"></span>
+					<span class="svg-icon" style={`--mask-url: url('/icons/facebook.svg')` } aria-hidden="true"></span>
 				</a>
 			</nav>
 		</div>

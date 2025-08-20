@@ -151,7 +151,7 @@ p { line-height: 1.65; }
 	-webkit-mask-repeat: no-repeat;
 	-webkit-mask-position: center;
 	-webkit-mask-size: contain;
-	/* dynamic mask via CSS var supplied inline */
+	/* dynamic mask via CSS var supplied inline; ensure relative path resolution */
 	-webkit-mask-image: var(--mask-url);
 	mask-image: var(--mask-url);
 }

@@ -7,7 +7,7 @@
 
 	let { children } = $props();
 
-	const siteUrl = 'https://killian-ott.github.io/CV';
+	const siteUrl = 'https://pr0g3t.com';
 	const ogImageUrl = `${siteUrl}/images/profile.png`;
 
 	// Organization (optional) for Team Cardinalis with logo
@@ -60,6 +60,12 @@
 		inLanguage: 'fr-FR',
 		mainEntity: jsonLd
 	};
+
+	// Pre-serialize JSON-LD to ensure valid inline output in SSR
+	const sanitizeJson = (s: string) => s.replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
+	const jsonLdStr = sanitizeJson(JSON.stringify(jsonLd));
+	const jsonLdSiteStr = sanitizeJson(JSON.stringify(jsonLdSite));
+	const jsonLdProfileStr = sanitizeJson(JSON.stringify(jsonLdProfile));
 
 	let generating = $state(false);
 	const generatePdf = async () => {
@@ -138,9 +144,9 @@
 	<!-- <meta name="twitter:site" content="@votre_handle" /> -->
 	<!-- <meta name="twitter:creator" content="@votre_handle" /> -->
 	<link rel="icon" href={favicon} />
-	<script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-	<script type="application/ld+json">{JSON.stringify(jsonLdSite)}</script>
-	<script type="application/ld+json">{JSON.stringify(jsonLdProfile)}</script>
+	{@html `<script type="application/ld+json">${jsonLdStr}</script>`}
+	{@html `<script type="application/ld+json">${jsonLdSiteStr}</script>`}
+	{@html `<script type="application/ld+json">${jsonLdProfileStr}</script>`}
 </svelte:head>
 
 <div class="paper" translate="no">
@@ -148,7 +154,7 @@
 </div>
 
 <button class="floating-download" onclick={generatePdf} aria-label="Download CV as PDF" disabled={generating}>
-	<img src="{base}/icons/download.svg" alt="Download" />
+	<img src="/icons/download.svg" alt="Download" />
 </button>
 
 <!-- Optional minimal profile avatar at top of layout (hidden by default) -->
