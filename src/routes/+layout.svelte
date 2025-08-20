@@ -154,7 +154,7 @@
 </div>
 
 <button class="floating-download" onclick={generatePdf} aria-label="Download CV as PDF" disabled={generating}>
-	<img src="/icons/download.svg" alt="Download" />
+	<img src="{base}/icons/download.svg" alt="Download" />
 </button>
 
 <!-- Optional minimal profile avatar at top of layout (hidden by default) -->
