@@ -26,6 +26,7 @@ export interface CvEducationItem {
     period: string;
     details?: string;
     link?: string;
+    credential?: string;
 }
 
 export interface CvCertificationItem {
@@ -118,6 +119,7 @@ const cv: CvData = {
             degree: 'Mathematics',
             period: 'Apr 2025',
             link: 'https://mitxonline.mit.edu/',
+            credential: 'https://mitxonline.mit.edu/certificate/da79f264-b4a4-4c64-997c-5374659f540d/',
             details:
                 'MITx offers various types of courses and programs to learn from MIT faculty and instructors. You can access free open-licensed educational materials, online professional credentials, blended learning experiences, and original content on emerging technologies.'
         },

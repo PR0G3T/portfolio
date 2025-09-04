@@ -173,6 +173,11 @@
                         {#if edu.details}
                             <p class="muted item-text">{edu.details}</p>
                         {/if}
+                        {#if edu.credential}
+                            <p class="mt-1">
+                                <a class="link cred-link inline-block" href={edu.credential} rel="noopener noreferrer" target="_blank">Credential ↗</a>
+                            </p>
+                        {/if}
                     </article>
                 {/each}
             </div>
