@@ -17,6 +17,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DOCS_DIR: docs
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,17 +32,17 @@ jobs:
       - name: Build
         run: npm run build
       - name: Create 404.html (SPA fallback)
-        run: cp docs/index.html docs/404.html
+        run: cp "$DOCS_DIR/index.html" "$DOCS_DIR/404.html"
       - name: Create .nojekyll
-        run: touch docs/.nojekyll
+        run: touch "$DOCS_DIR/.nojekyll"
       - name: List output
         run: |
           echo "Listing docs output:"
-          ls -la docs/
+          ls -la "$DOCS_DIR/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs
+          path: ${{ env.DOCS_DIR }}
   deploy:
     environment:
       name: github-pages

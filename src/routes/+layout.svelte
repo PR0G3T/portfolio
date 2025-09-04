@@ -1,9 +1,9 @@
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-    import { base } from '$app/paths';
-    import cv from '$lib/data/cv';
-    const profileSrc = `${base}/images/profile.png`;
+	import { base } from '$app/paths';
+	import cv from '$lib/data/cv';
+	const profileSrc = `${base}/images/profile.png`;
 
 	let { children } = $props();
 
@@ -17,6 +17,14 @@
 		logo: `${siteUrl}/images/companies/teamcardinalis.png`
 	};
 
+	// Map schools to more specific schema.org types when possible
+	const schoolTypeMap: Record<string, string> = {
+		'University of Helsinki': 'CollegeOrUniversity',
+		'MITx Courses': 'EducationalOrganization',
+		'Lycée Polyvalent Louis Armand': 'HighSchool',
+		'LycǸe Polyvalent Louis Armand': 'HighSchool'
+	};
+
 	// Person schema enriched
 	const jsonLd = {
 		'@context': 'https://schema.org',
@@ -26,7 +34,10 @@
 		url: `${siteUrl}/`,
 		jobTitle: 'PR0G3T',
 		worksFor: orgTeamCardinalis,
-		alumniOf: (cv.education ?? []).map((e) => ({ '@type': 'EducationalOrganization', name: e.school })),
+		alumniOf: (cv.education ?? []).map((e) => ({
+			'@type': schoolTypeMap[e.school] ?? 'EducationalOrganization',
+			name: e.school
+		})),
 		knowsAbout: cv.skills,
 		address: {
 			'@type': 'PostalAddress',
@@ -48,8 +59,9 @@
 		'@context': 'https://schema.org',
 		'@type': 'WebSite',
 		url: `${siteUrl}/`,
-		name: 'Killian OTT — CV',
-		inLanguage: 'fr-FR'
+		name: 'Killian OTT • CV',
+		inLanguage: 'en-US',
+		publisher: { '@id': `${siteUrl}/#organization` }
 	};
 
 	// ProfilePage schema referencing the Person as mainEntity
@@ -57,15 +69,47 @@
 		'@context': 'https://schema.org',
 		'@type': 'ProfilePage',
 		url: `${siteUrl}/`,
-		inLanguage: 'fr-FR',
+		inLanguage: 'en-US',
 		mainEntity: jsonLd
+	};
+
+	// Site Organization (publisher/owner)
+	const jsonLdOrg = {
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		'@id': `${siteUrl}/#organization`,
+		name: 'PR0G3T',
+		url: `${siteUrl}/`,
+		logo: ogImageUrl,
+		sameAs: [
+			'https://www.linkedin.com/in/killian-ott/',
+			'https://github.com/PR0G3T',
+			'https://www.instagram.com/pr0g3t/',
+			'https://www.facebook.com/PR0G3T/'
+		]
+	};
+
+	// Breadcrumb (even single level for homepage)
+	const jsonLdBreadcrumb = {
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{
+				'@type': 'ListItem',
+				position: 1,
+				name: 'Home',
+				item: `${siteUrl}/`
+			}
+		]
 	};
 
 	// Pre-serialize JSON-LD to ensure valid inline output in SSR
 	const sanitizeJson = (s: string) => s.replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
 	const jsonLdStr = sanitizeJson(JSON.stringify(jsonLd));
+	const jsonLdOrgStr = sanitizeJson(JSON.stringify(jsonLdOrg));
 	const jsonLdSiteStr = sanitizeJson(JSON.stringify(jsonLdSite));
 	const jsonLdProfileStr = sanitizeJson(JSON.stringify(jsonLdProfile));
+	const jsonLdBreadcrumbStr = sanitizeJson(JSON.stringify(jsonLdBreadcrumb));
 
 	let generating = $state(false);
 	const generatePdf = async () => {
@@ -113,40 +157,42 @@
 
 <svelte:head>
 	<title>Killian "PR0G3T" OTT</title>
-	<meta name="description" content="CV/Portfolio de Killian OTT (PR0G3T). Profil, compétences, expériences, éducation et certifications. Design minimaliste, moderne, thème blanc." />
+	<meta name="description" content="Resume/Portfolio of Killian OTT (PR0G3T). Profile, skills, experience, education and certifications. Minimal, modern design, light theme." />
 	<meta name="color-scheme" content="light" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="theme-color" content="#3B3B3F" />
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 	<meta name="googlebot" content="index,follow" />
 	<link rel="canonical" href={`${siteUrl}/`} />
-	<link rel="alternate" href={`${siteUrl}/`} hreflang="fr" />
+	<link rel="alternate" href={`${siteUrl}/`} hreflang="en" />
 	<link rel="alternate" hrefLang="x-default" href={`${siteUrl}/`} />
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Killian &quot;PR0G3T&quot; OTT" />
-	<meta property="og:description" content="CV/Portfolio de Killian OTT (PR0G3T). Profil, compétences, expériences, éducation et certifications." />
+	<meta property="og:description" content="Resume/Portfolio of Killian OTT (PR0G3T). Profile, skills, experience, education and certifications." />
 	<meta property="og:url" content={`${siteUrl}/`} />
 	<meta property="og:image" content={ogImageUrl} />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
-	<meta property="og:image:alt" content="CV de Killian OTT — IA, Cybersécurité" />
-	<meta property="og:site_name" content="Killian OTT — CV" />
-	<meta property="og:locale" content="fr_FR" />
+	<meta property="og:image:alt" content="Resume of Killian OTT — AI, Cybersecurity" />
+	<meta property="og:site_name" content="Killian OTT • CV" />
+	<meta property="og:locale" content="en_US" />
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Killian &quot;PR0G3T&quot; OTT" />
-	<meta name="twitter:description" content="CV/Portfolio de Killian OTT (PR0G3T). Profil, compétences, expériences, éducation et certifications." />
+	<meta name="twitter:description" content="Resume/Portfolio of Killian OTT (PR0G3T). Profile, skills, experience, education and certifications." />
 	<meta name="twitter:image" content={ogImageUrl} />
 	<!-- Optional: set your Twitter handle if available -->
-	<!-- <meta name="twitter:site" content="@votre_handle" /> -->
-	<!-- <meta name="twitter:creator" content="@votre_handle" /> -->
+	<!-- <meta name="twitter:site" content="@your_handle" /> -->
+	<!-- <meta name="twitter:creator" content="@your_handle" /> -->
 	<link rel="icon" href={favicon} />
 	{@html `<script type="application/ld+json">${jsonLdStr}</script>`}
+	{@html `<script type="application/ld+json">${jsonLdOrgStr}</script>`}
 	{@html `<script type="application/ld+json">${jsonLdSiteStr}</script>`}
 	{@html `<script type="application/ld+json">${jsonLdProfileStr}</script>`}
+	{@html `<script type="application/ld+json">${jsonLdBreadcrumbStr}</script>`}
 </svelte:head>
 
 <div class="paper" translate="no">
@@ -154,8 +200,9 @@
 </div>
 
 <button class="floating-download" onclick={generatePdf} aria-label="Download CV as PDF" disabled={generating}>
-	<img src="{base}/icons/download.svg" alt="Download" />
+	<img src={`${base}/icons/download.svg`} alt="Download" />
 </button>
 
 <!-- Optional minimal profile avatar at top of layout (hidden by default) -->
 <!-- <img src={profileSrc} alt="Profile" width="64" height="64" /> -->
+
