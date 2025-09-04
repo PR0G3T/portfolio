@@ -7,7 +7,8 @@
     // - In prod (base = '/CV'), return absolute like `/CV/images/...`
     const assetUrl = (p: string): string => {
         const clean = p.replace(/^\//, '');
-        return base ? `${base}/${clean}` : clean;
+        // Use root-relative when base is empty to avoid CSS-relative resolution
+        return base ? `${base}/${clean}` : `/${clean}`;
     };
 
     const openInNewTab = (href: string | undefined) => {

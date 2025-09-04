@@ -8,7 +8,7 @@
 	// Helper to build asset URLs that respect paths.base
 	const assetUrl = (p: string): string => {
 		const clean = p.replace(/^\//, '');
-		return base ? `${base}/${clean}` : clean;
+		return base ? `${base}/${clean}` : `/${clean}`;
 	};
 	const profileSrc = `${assetBase}/images/profile.png`;
 
