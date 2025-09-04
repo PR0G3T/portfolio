@@ -109,6 +109,7 @@ const cv: CvData = {
             school: 'University of Helsinki',
             degree: 'Artificial Intelligence, Computer Science & Cybersecurity',
             period: 'Apr 2025',
+            link: 'https://www.helsinki.fi/en',
             details:
                 "The open university provides University of Helsinki's courses for everyone interested in them, offering the opportunity to strengthen your skills"
         },
@@ -116,6 +117,7 @@ const cv: CvData = {
             school: 'MITx Courses',
             degree: 'Mathematics',
             period: 'Apr 2025',
+            link: 'https://mitxonline.mit.edu/',
             details:
                 'MITx offers various types of courses and programs to learn from MIT faculty and instructors. You can access free open-licensed educational materials, online professional credentials, blended learning experiences, and original content on emerging technologies.'
         },
@@ -142,4 +144,3 @@ const cv: CvData = {
 };
 
 export default cv;
-

@@ -3,7 +3,14 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { base } from '$app/paths';
 	import cv from '$lib/data/cv';
-	const profileSrc = `${base}/images/profile.png`;
+	// Normalize base to avoid '.' which creates relative URLs in CSS
+	const assetBase = base === '.' ? '' : base;
+	// Helper to build asset URLs that respect paths.base
+	const assetUrl = (p: string): string => {
+		const clean = p.replace(/^\//, '');
+		return base ? `${base}/${clean}` : clean;
+	};
+	const profileSrc = `${assetBase}/images/profile.png`;
 
 	let { children } = $props();
 
@@ -36,7 +43,8 @@
 		worksFor: orgTeamCardinalis,
 		alumniOf: (cv.education ?? []).map((e) => ({
 			'@type': schoolTypeMap[e.school] ?? 'EducationalOrganization',
-			name: e.school
+			name: e.school,
+			...(e.link ? { url: e.link } : {})
 		})),
 		knowsAbout: cv.skills,
 		address: {
@@ -200,9 +208,8 @@
 </div>
 
 <button class="floating-download" onclick={generatePdf} aria-label="Download CV as PDF" disabled={generating}>
-	<img src={`${base}/icons/download.svg`} alt="Download" />
+	<img src={assetUrl('icons/download.svg')} alt="Download" />
 </button>
 
 <!-- Optional minimal profile avatar at top of layout (hidden by default) -->
 <!-- <img src={profileSrc} alt="Profile" width="64" height="64" /> -->
-

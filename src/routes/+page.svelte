@@ -2,6 +2,14 @@
     import cv from '$lib/data/cv';
     import { base } from '$app/paths';
 
+    // Build safe asset URLs that respect `paths.base` during prerender
+    // - In dev (base = ''), return relative paths like `images/...`
+    // - In prod (base = '/CV'), return absolute like `/CV/images/...`
+    const assetUrl = (p: string): string => {
+        const clean = p.replace(/^\//, '');
+        return base ? `${base}/${clean}` : clean;
+    };
+
     const openInNewTab = (href: string | undefined) => {
         if (!href) return;
         window.open(href, '_blank', 'noopener,noreferrer');
@@ -21,12 +29,12 @@
 
     const getLogoPath = (company: string): string => {
         const override = companyLogoMap[company];
-        return override ? `${base}/images/companies/${override}.png` : `${base}/images/companies/default.png`;
+        return assetUrl(`images/companies/${override ?? 'default'}.png`);
     };
 
     const handleImgError = (event: Event) => {
         const target = event.currentTarget as HTMLImageElement | null;
-        if (target) target.src = `${base}/images/companies/default.png`;
+        if (target) target.src = assetUrl('images/companies/default.png');
     };
 
     const schoolLogoMap: Record<string, string> = {
@@ -37,7 +45,7 @@
 
     const getSchoolLogoPath = (school: string): string => {
         const override = schoolLogoMap[school];
-        return override ? `${base}/images/schools/${override}.png` : `${base}/images/schools/default.png`;
+        return assetUrl(`images/schools/${override ?? 'default'}.png`);
     };
 
     // Issuer logos for certifications (fallback to companies/default)
@@ -49,7 +57,7 @@
 	};
     const getIssuerLogoPath = (issuer: string): string => {
         const override = issuerLogoMap[issuer];
-        return override ? `${base}/images/companies/${override}.png` : `${base}/images/companies/default.png`;
+        return assetUrl(`images/companies/${override ?? 'default'}.png`);
     };
 </script>
 
@@ -57,7 +65,7 @@
     <section class="fade-in pt-12 pb-6">
         <div class="row-between">
             <div class="row-center-lg flex-auto-min-240">
-                <img src={`${base}/images/profile.png`} alt={cv.name} width="112" height="112" class="avatar" />
+                <img src={assetUrl('images/profile.png')} alt={cv.name} width="112" height="112" class="avatar" />
                 <div>
                     <h1 class="page-title">
                         {cv.name}
@@ -67,16 +75,16 @@
             </div>
             <nav class="row-center ml-auto gap-4">
                 <a class="icon-link linkedin" href="https://www.linkedin.com/in/killian-ott/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <span class="svg-icon linkedin-mask" style={`--mask-url: url('${base}/icons/linkedin.svg')`} aria-hidden="true"></span>
+                    <span class="svg-icon linkedin-mask" style={`--mask-url: url('${assetUrl('icons/linkedin.svg')}')`} aria-hidden="true"></span>
                 </a>
                 <a class="icon-link github" href="https://github.com/PR0G3T" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <span class="svg-icon" style={`--mask-url: url('${base}/icons/github.svg')`} aria-hidden="true"></span>
+                    <span class="svg-icon" style={`--mask-url: url('${assetUrl('icons/github.svg')}')`} aria-hidden="true"></span>
                 </a>
                 <a class="icon-link instagram" href="https://www.instagram.com/pr0g3t/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <span class="svg-icon" style={`--mask-url: url('${base}/icons/instagram.svg')`} aria-hidden="true"></span>
+                    <span class="svg-icon" style={`--mask-url: url('${assetUrl('icons/instagram.svg')}')`} aria-hidden="true"></span>
                 </a>
                 <a class="icon-link facebook" href="https://www.facebook.com/PR0G3T/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                    <span class="svg-icon" style={`--mask-url: url('${base}/icons/facebook.svg')`} aria-hidden="true"></span>
+                    <span class="svg-icon" style={`--mask-url: url('${assetUrl('icons/facebook.svg')}')`} aria-hidden="true"></span>
                 </a>
             </nav>
         </div>
