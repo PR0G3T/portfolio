@@ -34,6 +34,10 @@ export interface CvCertificationItem {
     issuer: string;
     year?: string;
     link?: string;
+    subCertifications?: Array<{
+        name: string;
+        link: string;
+    }>;
 }
 
 export interface CvLanguageItem {
@@ -133,7 +137,19 @@ const cv: CvData = {
         }
     ],
     certifications: [
-        { name: 'Deep Learning', issuer: 'NVIDIA Deep Learning Institute', year: 'Mar 2025', link: 'https://learn.nvidia.com/certificates?id=Pxo6ElBlT6qkvVatGYfYtw' },
+        { 
+            name: 'NVIDIA Deep Learning Institute Certifications', 
+            issuer: 'NVIDIA Deep Learning Institute', 
+            year: 'Mar 2025',
+            subCertifications: [
+                { name: 'Getting Started with Deep Learning', link: 'https://learn.nvidia.com/certificates?id=Pxo6ElBlT6qkvVatGYfYtw' },
+                { name: 'Building Real-Time Video AI Applications', link: 'https://learn.nvidia.com/certificates?id=TPWJvK2jT0yGPr51LTv8zQ' },
+                { name: 'Disaster Risk Monitoring Using Satellite Imagery', link: 'https://learn.nvidia.com/certificates?id=w-ff9Q14Tj6-8BJz4JLEtA' },
+                { name: 'Building RAG Agents with LLMs', link: 'https://learn.nvidia.com/certificates?id=cMgd0NssQaKil3NExWHiig' },
+                { name: 'Getting Started with AI on Jetson Nano', link: 'https://learn.nvidia.com/certificates?id=ZYDksGXWRimS0ipFbytFlg' }
+            ]
+        },
+        { name: 'Online Courses', issuer: 'Coursera', year: '2025', link: 'https://www.coursera.org/learner/killian-ott' },
         { name: 'Open Science', issuer: 'NASA - National Aeronautics and Space Administration', year: 'Dec 2024', link: 'https://orcid.org/0009-0001-2059-565X' },
         { name: 'Mathematics', issuer: 'MITx', year: 'Apr 2025', link: 'https://mitxonline.mit.edu/certificate/da79f264-b4a4-4c64-997c-5374659f540d/' }
     ],
