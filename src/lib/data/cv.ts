@@ -27,6 +27,11 @@ export interface CvEducationItem {
 	details?: string;
 	link?: string;
 	credential?: string;
+	credentialLabel?: string;
+	credentials?: Array<{
+		label: string;
+		href: string;
+	}>;
 }
 
 export interface CvCertificationItem {
@@ -90,7 +95,7 @@ const cv: CvData = {
 			company: 'Freelance',
 			role: 'Ethical Hacker | Bounty Hunter',
 			period: 'May 2019 - Jun 2021',
-			location: 'France — Remote',
+			location: 'France - Remote',
 			items: [
 				'Individuals with solid computer-science expertise and a strong spirit of curiosity can excel as bounty hunters.',
 				'The essential prerequisite for sustained success is a commitment to continuous learning.'
@@ -100,7 +105,7 @@ const cv: CvData = {
 			company: 'StarSpace Studio',
 			role: 'Chief Executive Officer',
 			period: 'Sep 2017 - May 2019',
-			location: 'France — Remote',
+			location: 'France - Remote',
 			items: [
 				'Autonomous game development studio employing Unreal Engine 4.22 for game development endeavors.'
 			]
@@ -121,7 +126,16 @@ const cv: CvData = {
 			degree: 'Mathematics',
 			period: 'Apr 2025',
 			link: 'https://mitxonline.mit.edu/',
-			credential: 'https://mitxonline.mit.edu/certificate/da79f264-b4a4-4c64-997c-5374659f540d/',
+			credentials: [
+				{
+					label: 'Linear Algebra and NxN Systems',
+					href: 'https://mitxonline.mit.edu/certificate/da79f264-b4a4-4c64-997c-5374659f540d/'
+				},
+				{
+					label: 'Multivariable Calculus 3: Theorems and Applications',
+					href: 'https://mitxonline.mit.edu/certificate/84ec49d0-889b-42f6-abc6-3b5bffd44a1b/'
+				}
+			],
 			details:
 				'MITx offers various types of courses and programs to learn from MIT faculty and instructors. You can access free open-licensed educational materials, online professional credentials, blended learning experiences, and original content on emerging technologies.'
 		},
@@ -173,12 +187,7 @@ const cv: CvData = {
 			year: 'Dec 2024',
 			link: 'https://orcid.org/0009-0001-2059-565X'
 		},
-		{
-			name: 'Mathematics',
-			issuer: 'MITx',
-			year: 'Apr 2025',
-			link: 'https://mitxonline.mit.edu/certificate/da79f264-b4a4-4c64-997c-5374659f540d/'
-		}
+
 	],
 	languages: [
 		{ language: 'English', proficiency: 'Professional working proficiency' },
