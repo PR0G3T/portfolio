@@ -3,14 +3,12 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { base } from '$app/paths';
 	import cv from '$lib/data/cv';
-	// Normalize base to avoid '.' which creates relative URLs in CSS
-	const assetBase = base === '.' ? '' : base;
+
 	// Helper to build asset URLs that respect paths.base
 	const assetUrl = (p: string): string => {
 		const clean = p.replace(/^\//, '');
 		return base ? `${base}/${clean}` : `/${clean}`;
 	};
-	const profileSrc = `${assetBase}/images/profile.png`;
 
 	let { children } = $props();
 
@@ -112,64 +110,32 @@
 	};
 
 	// Pre-serialize JSON-LD to ensure valid inline output in SSR
-	const sanitizeJson = (s: string) => s.replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
+	const sanitizeJson = (s: string) =>
+		s.replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
 	const jsonLdStr = sanitizeJson(JSON.stringify(jsonLd));
 	const jsonLdOrgStr = sanitizeJson(JSON.stringify(jsonLdOrg));
 	const jsonLdSiteStr = sanitizeJson(JSON.stringify(jsonLdSite));
 	const jsonLdProfileStr = sanitizeJson(JSON.stringify(jsonLdProfile));
 	const jsonLdBreadcrumbStr = sanitizeJson(JSON.stringify(jsonLdBreadcrumb));
 
-	let generating = $state(false);
-	const generatePdf = async () => {
-		if (generating) return;
-		generating = true;
-		try {
-			const [{ default: html2canvas }, jspdfModule] = await Promise.all([
-				import('html2canvas'),
-				import('jspdf')
-			]);
-			const JsPDF = jspdfModule.jsPDF;
-			const element = document.querySelector('.paper') as HTMLElement | null;
-			if (!element) return;
-			const canvas = await html2canvas(element, {
-				scale: 2,
-				useCORS: true,
-				backgroundColor: '#ffffff'
-			});
-			const imgData = canvas.toDataURL('image/jpeg', 0.98);
-			const pdf = new JsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
-			const pageWidth = pdf.internal.pageSize.getWidth();
-			const pageHeight = pdf.internal.pageSize.getHeight();
-			const imgWidthPx = canvas.width;
-			const imgHeightPx = canvas.height;
-			const imgAspect = imgWidthPx / imgHeightPx;
-			const pageAspect = pageWidth / pageHeight;
-			let renderWidth = pageWidth;
-			let renderHeight = pageHeight;
-			if (imgAspect > pageAspect) {
-				renderWidth = pageWidth;
-				renderHeight = pageWidth / imgAspect;
-			} else {
-				renderHeight = pageHeight;
-				renderWidth = pageHeight * imgAspect;
-			}
-			const x = (pageWidth - renderWidth) / 2;
-			const y = (pageHeight - renderHeight) / 2;
-			pdf.addImage(imgData, 'JPEG', x, y, renderWidth, renderHeight, undefined, 'FAST');
-			pdf.save('CV-Killian-OTT.pdf');
-		} finally {
-			generating = false;
-		}
+	const generatePdf = () => {
+		window.print();
 	};
 </script>
 
 <svelte:head>
 	<title>Killian "PR0G3T" OTT</title>
-	<meta name="description" content="Resume/Portfolio of Killian OTT (PR0G3T). Profile, skills, experience, education and certifications. Minimal, modern design, light theme." />
+	<meta
+		name="description"
+		content="Resume/Portfolio of Killian OTT (PR0G3T). Profile, skills, experience, education and certifications. Minimal, modern design, light theme."
+	/>
 	<meta name="color-scheme" content="light" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="theme-color" content="#3B3B3F" />
-	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+	<meta
+		name="robots"
+		content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+	/>
 	<meta name="googlebot" content="index,follow" />
 	<link rel="canonical" href={`${siteUrl}/`} />
 	<link rel="alternate" href={`${siteUrl}/`} hreflang="en" />
@@ -178,7 +144,10 @@
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Killian &quot;PR0G3T&quot; OTT" />
-	<meta property="og:description" content="Resume/Portfolio of Killian OTT (PR0G3T). Profile, skills, experience, education and certifications." />
+	<meta
+		property="og:description"
+		content="Resume/Portfolio of Killian OTT (PR0G3T). Profile, skills, experience, education and certifications."
+	/>
 	<meta property="og:url" content={`${siteUrl}/`} />
 	<meta property="og:image" content={ogImageUrl} />
 	<meta property="og:image:width" content="1200" />
@@ -190,24 +159,28 @@
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Killian &quot;PR0G3T&quot; OTT" />
-	<meta name="twitter:description" content="Resume/Portfolio of Killian OTT (PR0G3T). Profile, skills, experience, education and certifications." />
+	<meta
+		name="twitter:description"
+		content="Resume/Portfolio of Killian OTT (PR0G3T). Profile, skills, experience, education and certifications."
+	/>
 	<meta name="twitter:image" content={ogImageUrl} />
 	<!-- Optional: set your Twitter handle if available -->
 	<!-- <meta name="twitter:site" content="@your_handle" /> -->
 	<!-- <meta name="twitter:creator" content="@your_handle" /> -->
 	<link rel="icon" href={favicon} />
-	{@html `<script type="application/ld+json">${jsonLdStr}</script>`}
-	{@html `<script type="application/ld+json">${jsonLdOrgStr}</script>`}
-	{@html `<script type="application/ld+json">${jsonLdSiteStr}</script>`}
-	{@html `<script type="application/ld+json">${jsonLdProfileStr}</script>`}
-	{@html `<script type="application/ld+json">${jsonLdBreadcrumbStr}</script>`}
+	<!-- eslint-disable svelte/no-at-html-tags -->
+	{@html `<script type="application/ld+json">${jsonLdStr}<` + `/script>`}
+	{@html `<script type="application/ld+json">${jsonLdOrgStr}<` + `/script>`}
+	{@html `<script type="application/ld+json">${jsonLdSiteStr}<` + `/script>`}
+	{@html `<script type="application/ld+json">${jsonLdProfileStr}<` + `/script>`}
+	{@html `<script type="application/ld+json">${jsonLdBreadcrumbStr}<` + `/script>`}
 </svelte:head>
 
 <div class="paper" translate="no">
 	{@render children?.()}
 </div>
 
-<button class="floating-download" onclick={generatePdf} aria-label="Download CV as PDF" disabled={generating}>
+<button class="floating-download" onclick={generatePdf} aria-label="Download CV as PDF">
 	<img src={assetUrl('icons/download.svg')} alt="Download" />
 </button>
 

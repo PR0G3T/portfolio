@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Small postbuild script to inject ISO lastmod in static sitemap
 // Replaces the placeholder {LASTMOD_ISO} with current date in ISO 8601 (YYYY-MM-DD)
 
@@ -15,5 +16,3 @@ try {
 	console.error('[sitemap] failed to update lastmod:', err?.message || err);
 	process.exit(0);
 }
-
-
