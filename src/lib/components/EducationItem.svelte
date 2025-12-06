@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { getSchoolLogoPath, handleImgError } from '$lib/utils';
 	import type { CvEducationItem } from '$lib/data/cv';
 	import PdfModal from './PdfModal.svelte';
@@ -12,10 +13,14 @@
 	let showPdf = $state(false);
 	let pdfUrl = $state('');
 
+	function resolveUrl(url: string): string {
+		return url.startsWith('/') ? `${base}${url}` : url;
+	}
+
 	function openPdf(e: MouseEvent, url: string) {
 		if (url.endsWith('.pdf')) {
 			e.preventDefault();
-			pdfUrl = url;
+			pdfUrl = resolveUrl(url);
 			showPdf = true;
 		}
 	}
@@ -45,7 +50,7 @@
 			{#each edu.credentials as cred (cred.label)}
 				<a
 					class="link cred-link inline-block"
-					href={cred.href}
+					href={resolveUrl(cred.href)}
 					onclick={(e) => openPdf(e, cred.href)}
 					rel="noopener noreferrer"
 					target="_blank">{cred.label}</a
@@ -55,7 +60,7 @@
 	{:else if edu.credential}
 		<a
 			class="link cred-link inline-block"
-			href={edu.credential}
+			href={resolveUrl(edu.credential)}
 			onclick={(e) => openPdf(e, edu.credential ?? '')}
 			rel="noopener noreferrer"
 			target="_blank">{edu.credentialLabel ?? 'Credential'}</a
