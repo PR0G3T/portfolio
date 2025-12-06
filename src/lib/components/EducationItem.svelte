@@ -1,12 +1,24 @@
 <script lang="ts">
 	import { getSchoolLogoPath, handleImgError } from '$lib/utils';
 	import type { CvEducationItem } from '$lib/data/cv';
+	import PdfModal from './PdfModal.svelte';
 
 	interface Props {
 		edu: CvEducationItem;
 	}
 
 	let { edu }: Props = $props();
+
+	let showPdf = $state(false);
+	let pdfUrl = $state('');
+
+	function openPdf(e: MouseEvent, url: string) {
+		if (url.endsWith('.pdf')) {
+			e.preventDefault();
+			pdfUrl = url;
+			showPdf = true;
+		}
+	}
 </script>
 
 <article class="item-block">
@@ -29,11 +41,12 @@
 		<p class="description">{edu.details}</p>
 	{/if}
 	{#if edu.credentials}
-		<div class="cred-buttons-container mt-1">
+		<div class="cred-buttons-container">
 			{#each edu.credentials as cred (cred.label)}
 				<a
 					class="link cred-link inline-block"
 					href={cred.href}
+					onclick={(e) => openPdf(e, cred.href)}
 					rel="noopener noreferrer"
 					target="_blank">{cred.label}</a
 				>
@@ -43,8 +56,13 @@
 		<a
 			class="link cred-link inline-block"
 			href={edu.credential}
+			onclick={(e) => openPdf(e, edu.credential ?? '')}
 			rel="noopener noreferrer"
 			target="_blank">{edu.credentialLabel ?? 'Credential'}</a
 		>
+	{/if}
+
+	{#if showPdf}
+		<PdfModal src={pdfUrl} onClose={() => (showPdf = false)} />
 	{/if}
 </article>

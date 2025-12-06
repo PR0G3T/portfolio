@@ -118,6 +118,8 @@ const cv: CvData = {
 			degree: 'Artificial Intelligence, Computer Science & Cybersecurity',
 			period: 'Apr 2025',
 			link: 'https://www.helsinki.fi/en',
+			credential: '/credentials/Opiskelutodistus.pdf',
+			credentialLabel: 'Opiskelutodistus',
 			details:
 				"The open university provides University of Helsinki's courses for everyone interested in them, offering the opportunity to strengthen your skills"
 		},
@@ -186,8 +188,7 @@ const cv: CvData = {
 			issuer: 'NASA - National Aeronautics and Space Administration',
 			year: 'Dec 2024',
 			link: 'https://orcid.org/0009-0001-2059-565X'
-		},
-
+		}
 	],
 	languages: [
 		{ language: 'English', proficiency: 'Professional working proficiency' },

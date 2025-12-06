@@ -28,7 +28,7 @@
 		{/if}
 	</header>
 	{#if cert.subCertifications}
-		<div class="cred-buttons-container mt-1">
+		<div class="cred-buttons-container">
 			{#each cert.subCertifications as subCert (subCert.name)}
 				<a
 					class="link cred-link inline-block"
