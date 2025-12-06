@@ -216,7 +216,7 @@ p {
 }
 
 /* Standalone credential link after description */
-.description+.cred-link {
+.description + .cred-link {
 	margin-top: 0.75rem;
 	/* 12px */
 }
@@ -287,7 +287,6 @@ p {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
 	*,
 	*::before,
 	*::after {
@@ -339,7 +338,7 @@ p {
 	margin-bottom: 0;
 }
 
-.item-block>header {
+.item-block > header {
 	margin-bottom: 0.5rem;
 	/* 8px */
 }
@@ -351,7 +350,7 @@ p {
 	/* 4px */
 }
 
-.description+.description {
+.description + .description {
 	margin-top: 0.25rem;
 	/* 4px */
 }
@@ -520,7 +519,7 @@ h3 {
 }
 
 /* Main section with subtle top border for visual separation */
-.main-section+.main-section {
+.main-section + .main-section {
 	margin-top: 2rem;
 	padding-top: 1.5rem;
 	border-top: 1px solid var(--divider);
@@ -594,7 +593,7 @@ h3 {
 		position: static;
 	}
 
-	.main-section+.main-section {
+	.main-section + .main-section {
 		border-top-color: #e5e7eb;
 	}
 
