@@ -45,5 +45,7 @@
 			rel="noopener noreferrer"
 			target="_blank">Credentials</a
 		>
+	{:else if cert.credentialId}
+		<p class="item-meta">Credential ID: {cert.credentialId}</p>
 	{/if}
 </article>

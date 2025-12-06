@@ -42,7 +42,9 @@ const issuerLogoMap: Record<string, string> = {
 	'NVIDIA Deep Learning Institute': 'nvidia',
 	'NASA - National Aeronautics and Space Administration': 'nasa',
 	MITx: 'mitx',
-	Coursera: 'coursera'
+	Coursera: 'coursera',
+	AMD: 'amd',
+	Qualcomm: 'qualcomm'
 };
 
 export const getIssuerLogoPath = (issuer: string): string => {

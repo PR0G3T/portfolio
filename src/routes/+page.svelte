@@ -10,85 +10,84 @@
 <main class="container">
 	<Header />
 
-	<div class="section-sep"></div>
+	<div class="cv-layout">
+		<div class="cv-main">
+			<section class="main-section grid gap-4" aria-labelledby="experience-title">
+				<h2 id="experience-title" class="section-title">Experience</h2>
+				<div>
+					{#each cv.experience as exp (exp.company + exp.role)}
+						<ExperienceItem {exp} />
+					{/each}
+				</div>
+			</section>
 
-	<section class="grid gap-1" aria-labelledby="about-title">
-		<h2 id="about-title" class="section-title">About</h2>
-		<p class="description">{cv.summary}</p>
-	</section>
+			{#if cv.projects?.length}
+				<section class="main-section grid gap-4" aria-labelledby="projects-title">
+					<h2 id="projects-title" class="section-title">Projects</h2>
+					<div>
+						{#each cv.projects as project (project.name)}
+							<ProjectItem {project} />
+						{/each}
+					</div>
+				</section>
+			{/if}
 
-	<div class="section-sep"></div>
+			{#if cv.education?.length}
+				<section class="main-section grid gap-4" aria-labelledby="education-title">
+					<h2 id="education-title" class="section-title">Education</h2>
+					<div>
+						{#each cv.education as edu (edu.school + edu.degree)}
+							<EducationItem {edu} />
+						{/each}
+					</div>
+				</section>
+			{/if}
 
-	<section class="grid gap-2" aria-labelledby="skills-title">
-		<h2 id="skills-title" class="section-title">Skills</h2>
-		<div>
-			{#each cv.skills as skill (skill)}
-				<span class="tag">{skill}</span>
-			{/each}
+			{#if cv.certifications?.length}
+				<section class="main-section grid gap-4" aria-labelledby="licenses-title">
+					<h2 id="licenses-title" class="section-title">Licenses & certifications</h2>
+					<div>
+						{#each cv.certifications as cert (cert.name)}
+							<CertificationItem {cert} />
+						{/each}
+					</div>
+				</section>
+			{/if}
 		</div>
-	</section>
 
-	<div class="section-sep"></div>
+		<aside class="cv-sidebar">
+			<section aria-labelledby="about-title">
+				<h2 id="about-title" class="section-title">About</h2>
+				<p class="description">{cv.summary}</p>
+			</section>
 
-	<section class="grid gap-4" aria-labelledby="experience-title">
-		<h2 id="experience-title" class="section-title">Experience</h2>
-		<div>
-			{#each cv.experience as exp (exp.company + exp.role)}
-				<ExperienceItem {exp} />
-			{/each}
-		</div>
-	</section>
+			<div class="section-sep-sm"></div>
 
-	{#if cv.projects?.length}
-		<div class="section-sep"></div>
-		<section class="grid gap-4" aria-labelledby="projects-title">
-			<h2 id="projects-title" class="section-title">Projects</h2>
-			<div>
-				{#each cv.projects as project (project.name)}
-					<ProjectItem {project} />
-				{/each}
-			</div>
-		</section>
-	{/if}
+			<section class="grid gap-2" aria-labelledby="skills-title">
+				<h2 id="skills-title" class="section-title">Skills</h2>
+				<div class="sidebar-tags">
+					{#each cv.skills as skill (skill)}
+						<span class="tag">{skill}</span>
+					{/each}
+				</div>
+			</section>
 
-	{#if cv.education?.length}
-		<div class="section-sep"></div>
-		<section class="grid gap-4" aria-labelledby="education-title">
-			<h2 id="education-title" class="section-title">Education</h2>
-			<div>
-				{#each cv.education as edu (edu.school + edu.degree)}
-					<EducationItem {edu} />
-				{/each}
-			</div>
-		</section>
-	{/if}
-
-	{#if cv.certifications?.length}
-		<div class="section-sep"></div>
-		<section class="grid gap-4" aria-labelledby="licenses-title">
-			<h2 id="licenses-title" class="section-title">Licenses & certifications</h2>
-			<div>
-				{#each cv.certifications as cert (cert.name)}
-					<CertificationItem {cert} />
-				{/each}
-			</div>
-		</section>
-	{/if}
-
-	{#if cv.languages?.length}
-		<div class="section-sep"></div>
-		<section class="grid gap-4" aria-labelledby="languages-title">
-			<h2 id="languages-title" class="section-title">Languages</h2>
-			<div>
-				{#each cv.languages as lang (lang.language)}
-					<article class="item-block">
-						<h3 class="mb-[0.1rem]">{lang.language}</h3>
-						<p class="muted text-sm">{lang.proficiency}</p>
-					</article>
-				{/each}
-			</div>
-		</section>
-	{/if}
+			{#if cv.languages?.length}
+				<div class="section-sep-sm"></div>
+				<section aria-labelledby="languages-title">
+					<h2 id="languages-title" class="section-title">Languages</h2>
+					<div class="languages-grid">
+						{#each cv.languages as lang (lang.language)}
+							<div class="language-item">
+								<span class="language-name">{lang.language}</span>
+								<span class="language-level">{lang.proficiency}</span>
+							</div>
+						{/each}
+					</div>
+				</section>
+			{/if}
+		</aside>
+	</div>
 
 	<footer class="footer-space">
 		<p class="muted text-xs">Last updated {new Date().getFullYear()}</p>

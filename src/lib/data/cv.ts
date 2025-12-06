@@ -39,6 +39,7 @@ export interface CvCertificationItem {
 	issuer: string;
 	year?: string;
 	link?: string;
+	credentialId?: string;
 	subCertifications?: Array<{
 		name: string;
 		link: string;
@@ -188,6 +189,43 @@ const cv: CvData = {
 			issuer: 'NASA - National Aeronautics and Space Administration',
 			year: 'Dec 2024',
 			link: 'https://orcid.org/0009-0001-2059-565X'
+		},
+		{
+			name: 'Application Developer',
+			issuer: 'AMD',
+			year: '2025',
+			link: 'https://learning.amd.com/certs/11279/75330EE494E744348CCD3344A06D856265062.pdf'
+		},
+		{
+			name: 'Applied Remote Sensing Training',
+			issuer: 'NASA - National Aeronautics and Space Administration',
+			year: '2025',
+			credentialId: '9554993775KO',
+			subCertifications: [
+				{
+					name: 'Fundamentals of Remote Sensing',
+					link: '/credentials/arset/fundamentals-of-remote-sensing.png'
+				},
+				{
+					name: 'Hyperspectral Data for Land and Coastal Systems',
+					link: '/credentials/arset/hyperspectral-data-for-land-and-coastal-systems.png'
+				}
+			]
+		},
+		{
+			name: 'Wireless Academy',
+			issuer: 'Qualcomm',
+			year: '2025',
+			subCertifications: [
+				{
+					name: '5G Introductory Level',
+					link: '/credentials/qualcomm/5g-introductory-level.png'
+				},
+				{
+					name: 'AI Upskilling Certificate - Technical Foundation',
+					link: '/credentials/qualcomm/ai-upskilling-certificate-technical-foundation.png'
+				}
+			]
 		}
 	],
 	languages: [
