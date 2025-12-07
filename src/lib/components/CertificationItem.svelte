@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { getIssuerLogoPath, handleImgError } from '$lib/utils';
 	import type { CvCertificationItem } from '$lib/data/cv';
 
@@ -7,6 +8,11 @@
 	}
 
 	let { cert }: Props = $props();
+
+	// Resolve local paths with base prefix
+	const resolveCredUrl = (url: string): string => {
+		return url.startsWith('/') ? `${base}${url}` : url;
+	};
 </script>
 
 <article class="item-block">
@@ -32,7 +38,7 @@
 			{#each cert.subCertifications as subCert (subCert.name)}
 				<a
 					class="link cred-link inline-block"
-					href={subCert.link}
+					href={resolveCredUrl(subCert.link)}
 					rel="noopener noreferrer"
 					target="_blank">{subCert.name}</a
 				>
