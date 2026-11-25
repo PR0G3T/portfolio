@@ -1,4 +1,4 @@
-export type CvSocialType = 'linkedin' | 'github' | 'instagram' | 'facebook' | 'orcid';
+export type CvSocialType = 'linkedin' | 'github' | 'orcid';
 
 export interface CvSocialLink {
 	type: CvSocialType;
@@ -58,6 +58,8 @@ export interface CvData {
 	title: string;
 	summary: string;
 	location?: string;
+	email?: string;
+	phone?: string;
 	socials: CvSocialLink[];
 	skills: string[];
 	experience: CvExperienceItem[];

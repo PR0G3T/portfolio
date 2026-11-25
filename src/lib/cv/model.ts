@@ -1,6 +1,6 @@
 import type { CvData, CvSocialLink } from './types.js';
 import { displayCompany } from './brand.js';
-import { formatLinkLabel, formatPeriod } from './format.js';
+import { formatLinkLabel, formatPeriod, formatPhone, phoneHref } from './format.js';
 import { compareByRecency } from './period.js';
 import { SITE_HOST, SITE_URL } from '#lib/site.js';
 import { UI, type Locale } from '#lib/i18n/ui.js';
@@ -73,6 +73,10 @@ export const validateCvData = (data: CvData): string[] => {
 	if (!data.summary.trim()) issues.push('summary is empty');
 	if (data.experience.length === 0) issues.push('experience is empty');
 	if (data.skills.length === 0) issues.push('skills is empty');
+	if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+		issues.push('email is invalid');
+	}
+	if (data.phone && data.phone.replace(/\D/g, '').length < 6) issues.push('phone is invalid');
 
 	data.experience.forEach((item, index) => {
 		if (!item.role.trim()) issues.push(`experience[${index}].role is empty`);
@@ -135,7 +139,14 @@ export const buildResumeModel = (data: CvData, locale: Locale = 'en'): ResumeMod
 		href: SITE_URL
 	};
 
-	const contacts = uniqueContacts([website, ...data.socials.map(toContact)]);
+	const contacts = uniqueContacts([
+		...(data.email ? [{ label: 'Email', display: data.email, href: `mailto:${data.email}` }] : []),
+		...(data.phone
+			? [{ label: 'Phone', display: formatPhone(data.phone), href: phoneHref(data.phone) }]
+			: []),
+		website,
+		...data.socials.map(toContact)
+	]);
 
 	const experience = [...data.experience]
 		.sort((a, b) => compareByRecency(a.period, b.period))

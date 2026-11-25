@@ -71,9 +71,17 @@ describe('buildResumeModel', () => {
 		expect(buildResumeModel(cv).location).toBe('Lyon, Auvergne-Rhône-Alpes, France');
 	});
 
-	it('adds the portfolio as the first, de-duplicated contact', () => {
+	it('exposes email, phone and portfolio as the first contacts', () => {
 		const model = buildResumeModel(cv);
-		expect(model.contacts[0]).toMatchObject({ label: 'Portfolio', display: 'pr0g3t.com' });
+		expect(model.contacts.slice(0, 3)).toMatchObject([
+			{
+				label: 'Email',
+				display: 'killianott4@gmail.com',
+				href: 'mailto:killianott4@gmail.com'
+			},
+			{ label: 'Phone', display: '07 83 63 73 98', href: 'tel:+33783637398' },
+			{ label: 'Portfolio', display: 'pr0g3t.com' }
+		]);
 		expect(new Set(model.contacts.map((contact) => contact.href)).size).toBe(model.contacts.length);
 	});
 
@@ -190,6 +198,15 @@ describe('buildResumeModel', () => {
 		const broken = structuredClone(minimalCv);
 		broken.socials[0].href = 'https://[';
 		expect(() => buildResumeModel(broken)).toThrow(/not an HTTP URL/);
+	});
+
+	it('rejects an invalid email or phone', () => {
+		const broken = structuredClone(minimalCv);
+		broken.email = 'not-an-email';
+		broken.phone = '12';
+		const issues = validateCvData(broken);
+		expect(issues).toContain('email is invalid');
+		expect(issues).toContain('phone is invalid');
 	});
 
 	it('rejects an empty experience period', () => {

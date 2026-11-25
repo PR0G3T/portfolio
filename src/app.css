@@ -66,8 +66,6 @@
 	/* brand + common colors */
 	--black: #000000;
 	--brand-linkedin: #0a66c2;
-	--brand-instagram: #e4405f;
-	--brand-facebook: #1877f2;
 	--brand-github: #000000;
 }
 
@@ -220,14 +218,6 @@ p {
 
 .icon-link.github {
 	--icon-hover: var(--brand-github);
-}
-
-.icon-link.instagram {
-	--icon-hover: var(--brand-instagram);
-}
-
-.icon-link.facebook {
-	--icon-hover: var(--brand-facebook);
 }
 
 /* Mask-based SVG coloring (no change to source file) */

@@ -6,6 +6,8 @@ const EXPECTED_TEXT = [
 	'Killian OTT',
 	'PR0G3T',
 	'pr0g3t.com',
+	'killianott4@gmail.com',
+	'07 83 63 73 98',
 	'linkedin.com/in/killian-ott',
 	'github.com/PR0G3T',
 	'Instructor (Freelance)',

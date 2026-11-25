@@ -7,11 +7,11 @@ const cv: CvData = {
 	summary:
 		'I stand in awe of the sheer scale of human potential. A privileged witness to our unfolding evolution, I seek not merely to watch, but to act, to leave a legacy that outlasts my time, forever inscribed in the collective consciousness.',
 	location: 'Lyon, Auvergne-Rhône-Alpes, France',
+	email: 'killianott4@gmail.com',
+	phone: '0783637398',
 	socials: [
 		{ type: 'linkedin', href: 'https://www.linkedin.com/in/killian-ott/', label: 'LinkedIn' },
 		{ type: 'github', href: 'https://github.com/PR0G3T', label: 'GitHub' },
-		{ type: 'instagram', href: 'https://www.instagram.com/pr0g3t/', label: 'Instagram' },
-		{ type: 'facebook', href: 'https://www.facebook.com/PR0G3T/', label: 'Facebook' },
 		{ type: 'orcid', href: 'https://orcid.org/0009-0001-2059-565X', label: 'ORCID' }
 	],
 	skills: [

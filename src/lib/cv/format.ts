@@ -13,3 +13,19 @@ export const formatLinkLabel = (href: string): string => {
 
 /** Use an en dash for date ranges, the typographic convention on CVs. */
 export const formatPeriod = (value: string): string => value.trim().replace(/\s+[-–—]\s+/g, ' – ');
+
+const PHONE_DIGITS = /\D/g;
+
+/** Human-readable French phone number, grouped by two digits. */
+export const formatPhone = (value: string): string =>
+	value
+		.replace(PHONE_DIGITS, '')
+		.replace(/(\d{2})(?=\d)/g, '$1 ')
+		.trim();
+
+/** International dialing URI for a French phone number. */
+export const phoneHref = (value: string): string => {
+	const digits = value.replace(PHONE_DIGITS, '');
+	if (digits.startsWith('0')) return `tel:+33${digits.slice(1)}`;
+	return `tel:${value.trim().startsWith('+') ? '+' : ''}${digits}`;
+};

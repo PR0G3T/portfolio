@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { CvData } from '#lib/cv/types.js';
+	import { formatPhone, phoneHref } from '#lib/cv/format.js';
 	import { assetUrl } from '#lib/utils.js';
 
 	interface Props {
@@ -30,6 +31,18 @@
 				{#if data.location}
 					<p class="muted mt-0 text-xs">{data.location}</p>
 				{/if}
+				{#if data.email || data.phone}
+					<!-- eslint-disable svelte/no-navigation-without-resolve -->
+					<p class="header-contact">
+						{#if data.email}
+							<a href={`mailto:${data.email}`}>{data.email}</a>
+						{/if}
+						{#if data.phone}
+							<a href={phoneHref(data.phone)}>{formatPhone(data.phone)}</a>
+						{/if}
+					</p>
+					<!-- eslint-enable svelte/no-navigation-without-resolve -->
+				{/if}
 			</div>
 		</div>
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
@@ -54,3 +67,22 @@
 		<!-- eslint-enable svelte/no-navigation-without-resolve -->
 	</div>
 </section>
+
+<style>
+	.header-contact {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.15rem 0.8rem;
+		margin-top: 0.35rem;
+		font-size: var(--text-xs);
+	}
+
+	.header-contact a {
+		color: var(--muted);
+		text-decoration: none;
+	}
+
+	.header-contact a:hover {
+		color: var(--text);
+	}
+</style>
