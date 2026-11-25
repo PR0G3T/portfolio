@@ -25,3 +25,9 @@ vite.config.ts.timestamp-*
 # Build output
 /docs
 
+
+# Test artifacts
+coverage
+test-results
+playwright-report
+blob-report

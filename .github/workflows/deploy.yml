@@ -21,26 +21,39 @@ jobs:
       DOCS_DIR: docs
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 24
+          cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Build
+      - name: Lint and format
+        run: npm run lint
+      - name: Type check
+        run: npm run check
+      - name: Unit tests with 100% coverage
+        run: npm run test:coverage
+      - name: Cache Playwright browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Build and generate localized PDFs
         run: npm run build
-      - name: Create 404.html (SPA fallback)
-        run: cp "$DOCS_DIR/index.html" "$DOCS_DIR/404.html"
-      - name: Create .nojekyll
+      - name: Browser tests
+        run: npm run test:e2e
+      - name: Production build tests
+        run: npm run test:e2e:build
+      - name: Prepare Pages artifact
         run: touch "$DOCS_DIR/.nojekyll"
-      - name: List output
-        run: |
-          echo "Listing docs output:"
-          ls -la "$DOCS_DIR/"
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ${{ env.DOCS_DIR }}
   deploy:
@@ -52,4 +65,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

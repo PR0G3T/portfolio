@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { getLocaleContext } from '#lib/i18n/locale.svelte.js';
+
 	let { src, onClose } = $props();
+	const i18n = getLocaleContext();
+	const ui = $derived(i18n.ui);
 
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
@@ -28,11 +32,11 @@
 		class="relative flex h-[85vh] w-full max-w-5xl flex-col overflow-hidden rounded-xl bg-white shadow-2xl"
 	>
 		<div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-4 py-3">
-			<h3 class="font-semibold text-gray-800">Credential Viewer</h3>
+			<h3 class="font-semibold text-gray-800">{ui.credentialViewer}</h3>
 			<button
 				onclick={onClose}
 				class="rounded-full p-2 text-gray-600 transition-colors hover:bg-gray-200"
-				aria-label="Close"
+				aria-label={ui.close}
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -44,13 +48,13 @@
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"
-					></line></svg
 				>
+					<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+				</svg>
 			</button>
 		</div>
 		<div class="relative flex-1 bg-gray-100">
-			<iframe {src} class="h-full w-full border-none" title="PDF Viewer"></iframe>
+			<iframe {src} class="h-full w-full border-none" title={ui.pdfViewer}></iframe>
 		</div>
 	</div>
 </div>

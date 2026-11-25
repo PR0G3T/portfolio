@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { getSchoolLogoPath, handleImgError, resolveUrl } from '$lib/utils';
-	import type { CvEducationItem } from '$lib/data/cv';
+	import { getSchoolLogoPath, handleImgError, resolveUrl, schoolLogoFallback } from '#lib/utils.js';
+	import type { CvEducationItem } from '#lib/cv/types.js';
+	import { getLocaleContext } from '#lib/i18n/locale.svelte.js';
 	import PdfModal from './PdfModal.svelte';
 
 	interface Props {
@@ -8,6 +9,8 @@
 	}
 
 	let { edu }: Props = $props();
+	const i18n = getLocaleContext();
+	const ui = $derived(i18n.ui);
 
 	let showPdf = $state(false);
 	let pdfUrl = $state('');
@@ -29,8 +32,10 @@
 				alt={edu.school}
 				width="28"
 				height="28"
-				onerror={handleImgError}
+				onerror={(event) => handleImgError(event, schoolLogoFallback)}
 				class="logo"
+				loading="lazy"
+				decoding="async"
 			/>
 			<h3 class="item-title">{edu.degree}</h3>
 		</div>
@@ -49,8 +54,10 @@
 					class="link cred-link inline-block"
 					onclick={(e) => openPdf(e, cred.href)}
 					rel="noopener noreferrer"
-					target="_blank">{cred.label}</a
+					target="_blank"
 				>
+					{cred.label}
+				</a>
 			{/each}
 		</div>
 		<!-- eslint-enable svelte/no-navigation-without-resolve -->
@@ -61,8 +68,10 @@
 			class="link cred-link inline-block"
 			onclick={(e) => openPdf(e, edu.credential ?? '')}
 			rel="noopener noreferrer"
-			target="_blank">{edu.credentialLabel ?? 'Credential'}</a
+			target="_blank"
 		>
+			{edu.credentialLabel ?? ui.credential}
+		</a>
 		<!-- eslint-enable svelte/no-navigation-without-resolve -->
 	{/if}
 

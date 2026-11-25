@@ -1,38 +1,28 @@
-import { base } from '$app/paths';
+import { asset } from '$app/paths';
+import type { AssetPath } from '$app/types';
 
-// Build safe asset URLs that respect `paths.base` during prerender
-export const assetUrl = (p: string): string => {
-	const clean = p.replace(/^\//, '');
-	// Use root-relative when base is empty to avoid CSS-relative resolution
-	return base ? `${base}/${clean}` : `/${clean}`;
-};
+const asAssetPath = (path: string): AssetPath => path as AssetPath;
 
-// Resolve local paths with base prefix (shared utility)
-export const resolveUrl = (url: string): string => {
-	return url.startsWith('/') ? `${base}${url}` : url;
-};
+/** Resolve a file from `static/` while respecting the configured base path. */
+export const assetUrl = (path: string): string => asset(asAssetPath(path.replace(/^\//, '')));
 
-// Known logo mappings for companies with custom filenames
+/** Resolve a local URL (leading slash) or return external URLs unchanged. */
+export const resolveUrl = (url: string): string => (url.startsWith('/') ? assetUrl(url) : url);
+
 const companyLogoMap: Record<string, string> = {
 	'Körber Supply Chain Software': 'korber',
 	'Team Cardinalis': 'teamcardinalis',
 	"Sup de Vinci - école d'informatique": 'sup-de-vinci'
 };
 
-// Brand-specific casing overrides
-const brandCaseMap: Record<string, string> = {
-	'Körber Supply Chain Software': 'KÖRBER Supply Chain Software'
-};
+export { displayCompany } from './cv/brand.js';
 
-export const displayCompany = (name: string): string => brandCaseMap[name] ?? name;
+const createLogoResolver =
+	(map: Record<string, string>, subfolder: 'companies' | 'schools') =>
+	(name: string): string =>
+		assetUrl(`images/${subfolder}/${map[name] ?? 'default'}.webp`);
 
-const resolveLogoPath = (name: string, map: Record<string, string>, subfolder: string): string => {
-	const override = map[name];
-	return assetUrl(`images/${subfolder}/${override ?? 'default'}.webp`);
-};
-
-export const getCompanyLogoPath = (company: string): string =>
-	resolveLogoPath(company, companyLogoMap, 'companies');
+export const getCompanyLogoPath = createLogoResolver(companyLogoMap, 'companies');
 
 const schoolLogoMap: Record<string, string> = {
 	'University of Helsinki': 'university-of-helsinki',
@@ -40,10 +30,8 @@ const schoolLogoMap: Record<string, string> = {
 	'Lycée Polyvalent Louis Armand': 'default'
 };
 
-export const getSchoolLogoPath = (school: string): string =>
-	resolveLogoPath(school, schoolLogoMap, 'schools');
+export const getSchoolLogoPath = createLogoResolver(schoolLogoMap, 'schools');
 
-// Issuer logos for certifications (fallback to companies/default)
 const issuerLogoMap: Record<string, string> = {
 	'Google Cloud': 'google',
 	'NVIDIA Deep Learning Institute': 'nvidia',
@@ -54,10 +42,15 @@ const issuerLogoMap: Record<string, string> = {
 	Qualcomm: 'qualcomm'
 };
 
-export const getIssuerLogoPath = (issuer: string): string =>
-	resolveLogoPath(issuer, issuerLogoMap, 'companies');
+export const getIssuerLogoPath = createLogoResolver(issuerLogoMap, 'companies');
 
-export const handleImgError = (event: Event) => {
+export const companyLogoFallback = assetUrl('images/companies/default.webp');
+export const schoolLogoFallback = assetUrl('images/schools/default.webp');
+
+/** Replace a broken logo with the folder default, once. */
+export const handleImgError = (event: Event, fallback: string): void => {
 	const target = event.currentTarget as HTMLImageElement | null;
-	if (target) target.src = assetUrl('images/companies/default.webp');
+	if (!target) return;
+	target.onerror = null;
+	target.src = fallback;
 };

@@ -1,6 +1,11 @@
 <script lang="ts">
-	import { displayCompany, getCompanyLogoPath, handleImgError } from '$lib/utils';
-	import type { CvExperienceItem } from '$lib/data/cv';
+	import {
+		companyLogoFallback,
+		displayCompany,
+		getCompanyLogoPath,
+		handleImgError
+	} from '#lib/utils.js';
+	import type { CvExperienceItem } from '#lib/cv/types.js';
 
 	interface Props {
 		exp: CvExperienceItem;
@@ -17,8 +22,10 @@
 				alt={exp.company}
 				width="28"
 				height="28"
-				onerror={handleImgError}
+				onerror={(event) => handleImgError(event, companyLogoFallback)}
 				class="logo"
+				loading="lazy"
+				decoding="async"
 			/>
 			<h3 class="item-title">{exp.role}</h3>
 		</div>

@@ -1,24 +1,40 @@
 @import 'tailwindcss';
 
-/* Inter Display Variable */
+/* Inter Display Variable — screen typography */
 @font-face {
 	font-family: 'Inter Display';
 	font-weight: 100 900;
 	font-display: swap;
 	font-style: normal;
-	src:
-		url('/fonts/inter-display/InterVariable.woff2') format('woff2'),
-		url('/fonts/inter-display/InterVariable.ttf') format('truetype');
+	src: url('/fonts/inter-display/InterVariable.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: 'Inter Display';
-	font-weight: 100 900;
-	font-display: swap;
-	font-style: italic;
-	src:
-		url('/fonts/inter-display/InterVariable-Italic.woff2') format('woff2'),
-		url('/fonts/inter-display/InterVariable-Italic.ttf') format('truetype');
+	font-family: 'Inter Print';
+	font-weight: 400;
+	font-style: normal;
+	src: url('/fonts/inter-display/print/InterDisplay-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter Print';
+	font-weight: 500;
+	font-style: normal;
+	src: url('/fonts/inter-display/print/InterDisplay-Medium.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter Print';
+	font-weight: 600;
+	font-style: normal;
+	src: url('/fonts/inter-display/print/InterDisplay-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter Print';
+	font-weight: 700;
+	font-style: normal;
+	src: url('/fonts/inter-display/print/InterDisplay-Bold.woff2') format('woff2');
 }
 
 /* Minimal white theme on dark canvas: generous whitespace, legible type, subtle dividers */
@@ -106,16 +122,6 @@ body {
 	}
 }
 
-/* Replace hard dividers with vertical rhythm */
-.section-sep {
-	height: 2rem;
-	/* 32px - major section divider */
-}
-
-.group-gap {
-	margin-top: 12px;
-}
-
 /* Global paragraph color */
 p {
 	color: #585858;
@@ -150,34 +156,6 @@ p {
 	color: var(--text);
 	margin-bottom: 0.5rem;
 	/* 8px */
-}
-
-.list-compact li {
-	margin-bottom: 0.25rem;
-}
-
-/* Use hyphens instead of bullet dots for compact lists */
-.list-compact {
-	list-style: none;
-	padding-left: 0;
-}
-
-.list-compact li::before {
-	content: '- ';
-}
-
-/* Plain lists without any markers (for experience items) */
-.list-plain {
-	list-style: none;
-	padding-left: 0;
-}
-
-.list-plain li {
-	margin-bottom: 0.25rem;
-}
-
-.list-plain li::before {
-	content: '';
 }
 
 .link {
@@ -278,19 +256,6 @@ p {
 	background-color: var(--icon-hover);
 }
 
-/* No animations */
-.fade-in {
-	opacity: 1;
-	transform: none;
-}
-
-@keyframes fadeIn {
-	to {
-		opacity: 1;
-		transform: none;
-	}
-}
-
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,
@@ -327,10 +292,6 @@ p {
 
 *::-webkit-scrollbar-thumb:hover {
 	background-color: var(--scrollbar-thumb-hover);
-}
-
-.prose p {
-	margin: 0;
 }
 
 /* Vertical rhythm utilities */
@@ -383,38 +344,6 @@ p.muted {
 /* Reduce gap between language and proficiency level */
 .item-block h3 {
 	margin-bottom: 0.1rem;
-}
-
-.item-block p.muted.text-sm {
-	margin-top: 0.1rem;
-}
-
-/* Floating download button */
-.floating-download {
-	position: fixed;
-	left: 16px;
-	bottom: 16px;
-	z-index: 50;
-	width: 44px;
-	height: 44px;
-	border-radius: var(--radius-full);
-	background: #ffffff;
-	border: 1px solid rgba(0, 0, 0, 0.08);
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-}
-
-.floating-download img {
-	width: 20px;
-	height: 20px;
-	display: block;
-}
-
-.floating-download[disabled] {
-	cursor: not-allowed;
-	opacity: 0.8;
 }
 
 /* Headings: smaller h3 for a subtler hierarchy */
@@ -517,12 +446,6 @@ h3 {
 	color: var(--muted);
 }
 
-/* Sidebar About section - more compact */
-.sidebar-about {
-	font-size: var(--text-sm);
-	line-height: 1.6;
-}
-
 /* Main section with subtle top border for visual separation */
 .main-section + .main-section {
 	margin-top: 2rem;
@@ -550,58 +473,12 @@ h3 {
 	display: inline-block;
 }
 
-@media print {
-	@page {
-		margin: 0;
-		size: portrait;
-	}
+/* Credential chips without a public URL remain visually consistent. */
+.cred-static {
+	cursor: default;
+}
 
-	body {
-		background: white;
-		color: black;
-	}
-
-	.paper {
-		box-shadow: none;
-		border: none;
-		margin: 0;
-		padding: 20px 40px;
-		max-width: none;
-		width: 100%;
-	}
-
-	.floating-download {
-		display: none !important;
-	}
-
-	/* Ensure links are readable but not underlined if not desired, 
-	   or keep them as is. Usually good to keep them looking like links 
-	   or just black text if you want a cleaner print. */
-	a {
-		text-decoration: none;
-		color: black;
-	}
-
-	/* Reduce header top padding for PDF */
-	.fade-in.pt-12 {
-		padding-top: 0.5rem;
-	}
-
-	/* Two-column layout print adjustments */
-	.cv-layout {
-		grid-template-columns: 1fr 240px;
-		gap: 1.5rem;
-		margin-top: 1rem;
-	}
-
-	.cv-sidebar {
-		position: static;
-	}
-
-	.main-section + .main-section {
-		border-top-color: #e5e7eb;
-	}
-
-	/* Optional: Show URL after links? Usually not for a modern CV 
-	   unless it's a printed copy. Let's keep it clean for PDF export. */
+.cred-static:hover {
+	background-color: transparent;
+	color: #116dff;
 }

@@ -1,77 +1,12 @@
-// Centralized CV data to keep the page markup minimal and DRY
-// Replace placeholder values with your real information
-export interface CvSocialLink {
-	type: 'linkedin' | 'github' | 'instagram' | 'facebook' | 'orcid';
-	href: string;
-	label: string;
-}
+import type { CvData } from '#lib/cv/types.js';
 
-export interface CvExperienceItem {
-	company: string;
-	role: string;
-	period: string;
-	location?: string;
-	items: string[];
-	link?: string;
-}
-
-export interface CvProjectItem {
-	name: string;
-	description: string;
-	link?: string;
-}
-
-export interface CvEducationItem {
-	school: string;
-	degree: string;
-	period: string;
-	details?: string;
-	link?: string;
-	credential?: string;
-	credentialLabel?: string;
-	credentials?: Array<{
-		label: string;
-		href: string;
-	}>;
-}
-
-export interface CvCertificationItem {
-	name: string;
-	issuer: string;
-	year?: string;
-	link?: string;
-	credentialId?: string;
-	subCertifications?: Array<{
-		name: string;
-		link: string;
-	}>;
-}
-
-export interface CvLanguageItem {
-	language: string;
-	proficiency: string;
-}
-
-export interface CvData {
-	name: string;
-	title: string;
-	summary: string;
-	location?: string;
-	socials: CvSocialLink[];
-	skills: string[];
-	experience: CvExperienceItem[];
-	projects?: CvProjectItem[];
-	education?: CvEducationItem[];
-	certifications?: CvCertificationItem[];
-	languages?: CvLanguageItem[];
-}
-
+// Single source of truth for every CV surface (portfolio, print view, exports).
 const cv: CvData = {
 	name: 'Killian OTT',
 	title: 'PR0G3T',
 	summary:
 		'I stand in awe of the sheer scale of human potential. A privileged witness to our unfolding evolution, I seek not merely to watch, but to act, to leave a legacy that outlasts my time, forever inscribed in the collective consciousness.',
-	location: '',
+	location: 'Lyon, Auvergne-Rhône-Alpes, France',
 	socials: [
 		{ type: 'linkedin', href: 'https://www.linkedin.com/in/killian-ott/', label: 'LinkedIn' },
 		{ type: 'github', href: 'https://github.com/PR0G3T', label: 'GitHub' },
@@ -88,18 +23,34 @@ const cv: CvData = {
 	],
 	experience: [
 		{
+			company: 'Hussard Group',
+			role: 'Chairman & Chief Executive Officer',
+			period: 'Jan 2025 - Present',
+			location: 'Lyon, Auvergne-Rhône-Alpes, France',
+			items: []
+		},
+		{
+			company: 'Hussard AI',
+			role: 'Chairman & Chief Executive Officer',
+			period: 'Jan 2025 - Present',
+			location: 'Lyon, Auvergne-Rhône-Alpes, France',
+			items: []
+		},
+		{
 			company: "Sup de Vinci - école d'informatique",
 			role: 'Instructor (Freelance)',
 			period: 'Dec 2025 - Present',
 			location: 'Bordeaux, Nouvelle-Aquitaine, France',
-			items: ['Teaching Web Development and Desktop Application Development.']
+			items: [
+				'French higher education institution specializing in computer science, software development, and cybersecurity.'
+			]
 		},
 		{
 			company: 'Team Cardinalis',
-			role: 'Chief Executive Officer',
+			role: 'Chairman & Chief Executive Officer',
 			period: 'Jul 2020 - Present',
 			items: [
-				'Established in 2020, Team Cardinalis stands as an international organisation where eSports converge to inspire and unite.'
+				'International eSport organisation, established in 2020, where innovations and social initiatives converge to inspire and unite.'
 			]
 		},
 		{
@@ -108,8 +59,7 @@ const cv: CvData = {
 			period: 'May 2024 - Jul 2024',
 			location: 'Lyon, Auvergne-Rhône-Alpes, France',
 			items: [
-				'German company specializing in automation and logistics technologies, founded in 1946.',
-				'Provides innovative solutions for supply chain management and digital transformation.'
+				'German company specializing in automation and logistics technologies, founded in 1946. It provides innovative solutions for supply chain management and digital transformation.'
 			]
 		},
 		{
@@ -119,12 +69,12 @@ const cv: CvData = {
 			location: 'France - Remote',
 			items: [
 				'Individuals with solid computer-science expertise and a strong spirit of curiosity can excel as bounty hunters.',
-				'The essential prerequisite for sustained success is a commitment to continuous learning.'
+				'There is no age requirement for entry; the essential prerequisite for sustained success is a commitment to continuous learning.'
 			]
 		},
 		{
 			company: 'StarSpace Studio',
-			role: 'Chief Executive Officer',
+			role: 'Chairman & Chief Executive Officer',
 			period: 'Sep 2017 - May 2019',
 			location: 'France - Remote',
 			items: [
@@ -136,18 +86,18 @@ const cv: CvData = {
 	education: [
 		{
 			school: 'University of Helsinki',
-			degree: 'Artificial Intelligence, Computer Science & Cybersecurity',
-			period: 'Apr 2025',
+			degree: 'Mathematics & Computer Science',
+			period: 'Apr 2023 - Present',
 			link: 'https://www.helsinki.fi/en',
 			credential: '/credentials/university-of-helsinki/Opiskelutodistus.pdf',
 			credentialLabel: 'Opiskelutodistus',
 			details:
-				"The open university provides University of Helsinki's courses for everyone interested in them, offering the opportunity to strengthen your skills"
+				'Whether your goal is to strengthen your professional competence, switch careers or graduate faster, the Open University is there for you. Be open to new thinking.'
 		},
 		{
 			school: 'MITx Courses',
-			degree: 'Mathematics',
-			period: 'Apr 2025',
+			degree: 'Mathematics & Data Engineering',
+			period: 'Apr 2025 - Present',
 			link: 'https://mitxonline.mit.edu/',
 			credentials: [
 				{
@@ -160,7 +110,7 @@ const cv: CvData = {
 				}
 			],
 			details:
-				'MITx offers various types of courses and programs to learn from MIT faculty and instructors. You can access free open-licensed educational materials, online professional credentials, blended learning experiences, and original content on emerging technologies.'
+				'MITx offers various types of courses and programs to learn from MIT faculty and instructors.'
 		},
 		{
 			school: 'Lycée Polyvalent Louis Armand',
@@ -168,35 +118,135 @@ const cv: CvData = {
 			period: 'Sep 2021 - Jul 2023',
 			details:
 				'Grade: Fairly Good. Secondary school in Villefranche-sur-Saône, part of the Lyon education authority.'
+		},
+		{
+			school: 'LYCEE POLYVALENT AIGUERANDE',
+			degree: 'General',
+			period: 'Sep 2020 - Sep 2021'
 		}
 	],
 	certifications: [
 		{
-			name: 'NVIDIA Deep Learning Institute Certifications',
-			issuer: 'NVIDIA Deep Learning Institute',
+			name: 'Python Computer Vision',
+			issuer: 'OpenCV University',
+			featured: true,
+			subCertifications: [{ name: 'PyTorch' }, { name: 'TensorFlow' }, { name: 'OpenCV' }]
+		},
+		{
+			name: 'ANSSI Cybersecurity MOOC',
+			issuer: "ANSSI - Agence nationale de la sécurité des systèmes d'information",
+			year: 'Jun 2024',
+			credentialId: 'xaMeiBhKKiUhGR4FUs4hllm0KluAsnVkLHNap7UNBSYzNwEsRiCx9a5VMWb_001354_28062024',
+			featured: true,
+			subCertifications: [{ name: 'MOOC Certificate' }]
+		},
+		{
+			name: 'French Driver License',
+			issuer: 'France Titres - Agence nationale des titres sécurisés - ANTS',
+			year: 'Sep 2023 - Sep 2028',
+			credentialId: '23AS46014'
+		},
+		{
+			name: 'NVIDIA Deep Learning Institute',
+			issuer: 'NVIDIA',
 			year: 'Mar 2025',
+			featured: true,
 			subCertifications: [
-				{
-					name: 'Getting Started with Deep Learning',
-					link: 'https://learn.nvidia.com/certificates?id=Pxo6ElBlT6qkvVatGYfYtw'
-				},
-				{
-					name: 'Building Real-Time Video AI Applications',
-					link: 'https://learn.nvidia.com/certificates?id=TPWJvK2jT0yGPr51LTv8zQ'
-				},
-				{
-					name: 'Disaster Risk Monitoring Using Satellite Imagery',
-					link: 'https://learn.nvidia.com/certificates?id=w-ff9Q14Tj6-8BJz4JLEtA'
-				},
-				{
-					name: 'Building RAG Agents with LLMs',
-					link: 'https://learn.nvidia.com/certificates?id=cMgd0NssQaKil3NExWHiig'
-				},
-				{
-					name: 'Getting Started with AI on Jetson Nano',
-					link: 'https://learn.nvidia.com/certificates?id=ZYDksGXWRimS0ipFbytFlg'
-				}
+				{ name: 'Deep Learning' },
+				{ name: 'Building Real-Time Video AI Applications' },
+				{ name: 'Disaster Risk Monitoring Using Satellite Imagery' },
+				{ name: 'Building RAG Agents with LLMs' },
+				{ name: 'Getting Started with AI on Jetson Nano' }
 			]
+		},
+		{
+			name: 'Open Science',
+			issuer: 'NASA - National Aeronautics and Space Administration',
+			credentialId: '0009-0001-2059-565X',
+			subCertifications: [{ name: 'Open Science Essentials' }, { name: 'Open Science 101' }]
+		},
+		{
+			name: 'Linux Foundation Education',
+			issuer: 'The Linux Foundation'
+		},
+		{
+			name: 'IBM SkillsBuild',
+			issuer: 'IBM'
+		},
+		{
+			name: 'Developer Program',
+			issuer: 'Google',
+			featured: true,
+			subCertifications: [
+				{ name: 'Google Cloud Skills Boost' },
+				{ name: 'Google Developer Program' }
+			]
+		},
+		{
+			name: 'Hugging Face Learn',
+			issuer: 'Hugging Face',
+			subCertifications: [
+				{ name: 'Deep Reinforcement Learning' },
+				{ name: 'Fundamentals of LLMs' },
+				{ name: 'Fundamentals of GRPO' }
+			]
+		},
+		{
+			name: 'Cloud Infrastructure 2025',
+			issuer: 'Oracle',
+			subCertifications: [{ name: 'AI Foundations Associate' }, { name: 'Foundations Associate' }]
+		},
+		{
+			name: 'Microsoft Learn',
+			issuer: 'Microsoft'
+		},
+		{
+			name: 'TryHackMe Top 1%',
+			issuer: 'TryHackMe',
+			featured: true
+		},
+		{
+			name: 'Computer Vision Foundations',
+			issuer: 'Ultralytics',
+			credentialId: '0c5bf1b2-12b0-4ae8-9faf-db4fab734e3a'
+		},
+		{
+			name: 'NVIDIA Academy',
+			issuer: 'NVIDIA',
+			subCertifications: [
+				{ name: 'Introduction to Networking' },
+				{ name: 'AI for All From Basics to Gen AI Practice' }
+			]
+		},
+		{
+			name: 'MathWorks Academy',
+			issuer: 'MathWorks',
+			subCertifications: [
+				{ name: 'Reinforcement Learning Onramp' },
+				{ name: 'Computer Vision Onramp' },
+				{ name: 'Deep Learning Onramp' }
+			]
+		},
+		{
+			name: 'Anthropic Skilljar',
+			issuer: 'Anthropic',
+			subCertifications: [
+				{ name: 'Introduction to Model Context Protocol' },
+				{ name: 'Model Context Protocol : Advanced Topics' },
+				{ name: 'AI Fluency : Framework & Foundations' }
+			]
+		},
+		{
+			name: 'Application Developer',
+			issuer: 'AMD',
+			year: '2025',
+			link: 'https://learning.amd.com/certs/11279/75330EE494E744348CCD3344A06D856265062.pdf',
+			credentialId: '11279/75330EE494E744348CCD3344A06D856265062',
+			featured: true
+		},
+		{
+			name: 'Root-Me Challenges',
+			issuer: 'Root-Me'
 		},
 		{
 			name: 'Online Courses',
@@ -205,37 +255,11 @@ const cv: CvData = {
 			link: 'https://www.coursera.org/learner/killian-ott'
 		},
 		{
-			name: 'Open Science',
-			issuer: 'NASA - National Aeronautics and Space Administration',
-			year: 'Dec 2024',
-			link: 'https://orcid.org/0009-0001-2059-565X'
-		},
-		{
-			name: 'Application Developer',
-			issuer: 'AMD',
-			year: '2025',
-			link: 'https://learning.amd.com/certs/11279/75330EE494E744348CCD3344A06D856265062.pdf'
-		},
-		{
-			name: 'Applied Remote Sensing Training',
-			issuer: 'NASA - National Aeronautics and Space Administration',
-			year: '2025',
-			credentialId: '9554993775KO',
-			subCertifications: [
-				{
-					name: 'Fundamentals of Remote Sensing',
-					link: '/credentials/arset/fundamentals-of-remote-sensing.webp'
-				},
-				{
-					name: 'Hyperspectral Data for Land and Coastal Systems',
-					link: '/credentials/arset/hyperspectral-data-for-land-and-coastal-systems.webp'
-				}
-			]
-		},
-		{
 			name: 'Wireless Academy',
 			issuer: 'Qualcomm',
 			year: '2025',
+			credentialId: 'QFNFY74C',
+			featured: true,
 			subCertifications: [
 				{
 					name: '5G Introductory Level',
@@ -244,6 +268,27 @@ const cv: CvData = {
 				{
 					name: 'AI Upskilling Certificate - Technical Foundation',
 					link: '/credentials/qualcomm/ai-upskilling-certificate-technical-foundation.webp'
+				}
+			]
+		},
+		{
+			name: 'GitHub Foundation',
+			issuer: 'GitHub'
+		},
+		{
+			name: 'Applied Remote Sensing Training',
+			issuer: 'NASA - National Aeronautics and Space Administration',
+			year: '2025',
+			credentialId: '9554993775KO',
+			featured: true,
+			subCertifications: [
+				{
+					name: 'Fundamentals of Remote Sensing',
+					link: '/credentials/arset/fundamentals-of-remote-sensing.webp'
+				},
+				{
+					name: 'Hyperspectral Data for Land and Coastal Systems',
+					link: '/credentials/arset/hyperspectral-data-for-land-and-coastal-systems.webp'
 				}
 			]
 		}

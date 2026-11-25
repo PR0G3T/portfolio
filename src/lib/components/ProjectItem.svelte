@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { CvProjectItem } from '$lib/data/cv';
+	import type { CvProjectItem } from '#lib/cv/types.js';
 
 	interface Props {
 		project: CvProjectItem;

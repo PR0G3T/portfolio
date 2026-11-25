@@ -1,12 +1,20 @@
 <script lang="ts">
-	import { getIssuerLogoPath, handleImgError, resolveUrl } from '$lib/utils';
-	import type { CvCertificationItem } from '$lib/data/cv';
+	import {
+		companyLogoFallback,
+		getIssuerLogoPath,
+		handleImgError,
+		resolveUrl
+	} from '#lib/utils.js';
+	import type { CvCertificationItem } from '#lib/cv/types.js';
+	import { getLocaleContext } from '#lib/i18n/locale.svelte.js';
 
 	interface Props {
 		cert: CvCertificationItem;
 	}
 
 	let { cert }: Props = $props();
+	const i18n = getLocaleContext();
+	const ui = $derived(i18n.ui);
 </script>
 
 <article class="item-block">
@@ -17,8 +25,10 @@
 				alt={cert.issuer}
 				width="28"
 				height="28"
-				onerror={handleImgError}
+				onerror={(event) => handleImgError(event, companyLogoFallback)}
 				class="logo"
+				loading="lazy"
+				decoding="async"
 			/>
 			<h3 class="item-title">{cert.name}</h3>
 		</div>
@@ -31,12 +41,18 @@
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
 		<div class="cred-buttons-container">
 			{#each cert.subCertifications as subCert (subCert.name)}
-				<a
-					href={resolveUrl(subCert.link)}
-					class="link cred-link inline-block"
-					rel="noopener noreferrer"
-					target="_blank">{subCert.name}</a
-				>
+				{#if subCert.link}
+					<a
+						href={resolveUrl(subCert.link)}
+						class="link cred-link inline-block"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						{subCert.name}
+					</a>
+				{:else}
+					<span class="link cred-link cred-static inline-block">{subCert.name}</span>
+				{/if}
 			{/each}
 		</div>
 		<!-- eslint-enable svelte/no-navigation-without-resolve -->
@@ -46,10 +62,12 @@
 			href={cert.link}
 			class="link cred-link inline-block"
 			rel="noopener noreferrer"
-			target="_blank">Credentials</a
+			target="_blank"
 		>
+			{ui.credentials}
+		</a>
 		<!-- eslint-enable svelte/no-navigation-without-resolve -->
 	{:else if cert.credentialId}
-		<p class="item-meta">Credential ID: {cert.credentialId}</p>
+		<p class="item-meta">{ui.credentialId}: {cert.credentialId}</p>
 	{/if}
 </article>
